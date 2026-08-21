@@ -46,7 +46,7 @@ const Portfolio = () => {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
         className="mb-20"
       >
         <h2 className="text-5xl md:text-7xl font-extrabold text-dark tracking-tight mb-6">
@@ -70,7 +70,7 @@ const Portfolio = () => {
                 initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
                 className="w-full lg:w-3/5 relative rounded-[2rem] overflow-hidden shadow-2xl bg-slate-100 cursor-pointer"
                 onClick={() => setSelectedProject(project)}
               >
@@ -80,7 +80,7 @@ const Portfolio = () => {
                 {/* Efek Parallax/Zoom Halus pada Gambar */}
                 <motion.img 
                   whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.7 }}
+                  transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
                   src={project.image} 
                   alt={project.title} 
                   className="w-full h-[300px] md:h-[450px] lg:h-[550px] object-cover relative z-0"
@@ -99,7 +99,7 @@ const Portfolio = () => {
                 initial={{ opacity: 0, x: isEven ? 50 : -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
                 className="w-full lg:w-2/5 flex flex-col"
               >
                 <div className="flex items-center gap-4 mb-4">
@@ -143,13 +143,15 @@ const Portfolio = () => {
               initial={{ scale: 0.9, y: 20, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.9, y: 20, opacity: 0 }}
-              transition={{ type: "spring", bounce: 0.3, duration: 0.5 }}
-              className="bg-white w-full max-w-3xl rounded-[2rem] overflow-hidden shadow-2xl relative flex flex-col"
+              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
+              // TAMBAHAN: max-h-[90vh] dan overflow-y-auto agar modal bisa di-scroll di dalam HP
+              className="bg-white w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-[2rem] shadow-2xl relative flex flex-col"
               onClick={(e) => e.stopPropagation()} // Cegah tutup saat klik area modal
             >
               <button 
                 onClick={() => setSelectedProject(null)} 
-                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/50 backdrop-blur-md text-dark rounded-full flex items-center justify-center text-xl hover:bg-red-500 hover:text-white transition-colors"
+                // TAMBAHAN: Ubah absolute top-4 menjadi sticky/fixed agar tombol close tetap terlihat saat di-scroll
+                className="absolute top-4 right-4 z-20 w-10 h-10 bg-white/80 backdrop-blur-md text-dark rounded-full flex items-center justify-center text-xl hover:bg-red-500 hover:text-white transition-colors shadow-sm"
               >
                 <i className="fas fa-times"></i>
               </button>

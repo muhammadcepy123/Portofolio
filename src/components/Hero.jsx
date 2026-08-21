@@ -27,12 +27,12 @@ const Hero = () => {
       {/* Ornamen Cahaya Blur di Belakang */}
       <motion.div 
         animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
         className="absolute top-[10%] right-[5%] w-[500px] h-[500px] bg-sky-300/40 rounded-full blur-[100px] z-0"
       />
       <motion.div 
         animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.5, 0.2] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
         className="absolute bottom-[0%] left-[0%] w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] z-0"
       />
 
@@ -103,11 +103,11 @@ const Hero = () => {
         <motion.div 
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
           className="w-full lg:w-[40%] relative flex justify-center lg:justify-end mt-10 lg:mt-0"
         >
-          {/* Kotak Glassmorphism Utama */}
-          <div className="relative w-[300px] h-[380px] md:w-[380px] md:h-[480px] xl:w-[450px] xl:h-[550px] rounded-[2rem] bg-white/40 backdrop-blur-xl border border-white shadow-2xl p-4 z-10 group">
+          {/* Kotak Glassmorphism Utama (Diubah agar dinamis di layar HP terkecil) */}
+          <div className="relative w-full max-w-[260px] h-[340px] sm:max-w-[300px] sm:h-[380px] md:max-w-[380px] md:h-[480px] xl:max-w-[450px] xl:h-[550px] rounded-[2rem] bg-white/40 backdrop-blur-xl border border-white shadow-2xl p-4 z-10 group mx-auto lg:mx-0">
             <div className="w-full h-full rounded-2xl overflow-hidden relative">
               <div className="absolute inset-0 bg-primary/20 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-500 z-10"></div>
               <img src="contoh.png" alt="Foto Muhammad Cepy" className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
@@ -117,7 +117,7 @@ const Hero = () => {
           {/* Ikon Float 1: Laravel */}
           <motion.div 
             animate={{ y: [0, -15, 0], rotate: [0, 5, -5, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
             className="absolute -top-6 -left-6 md:top-10 md:-left-12 w-20 h-20 bg-white rounded-2xl shadow-xl flex items-center justify-center text-red-500 text-4xl z-20 border border-slate-50"
           >
             <i className="fab fa-laravel"></i>
@@ -126,7 +126,7 @@ const Hero = () => {
           {/* Ikon Float 2: Flutter / Mobile */}
           <motion.div 
             animate={{ y: [0, 20, 0], rotate: [0, -10, 10, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
             className="absolute bottom-10 -left-4 md:bottom-20 md:-left-16 w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center text-sky-500 text-3xl z-20 border border-slate-50"
           >
             <i className="fab fa-app-store-ios"></i>
@@ -135,7 +135,7 @@ const Hero = () => {
           {/* Ikon Float 3: Database / PHP */}
           <motion.div 
             animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
             className="absolute -bottom-8 right-10 md:-bottom-12 md:right-20 w-24 h-24 bg-dark rounded-full shadow-2xl flex items-center justify-center text-white text-4xl z-20 border-4 border-white"
           >
             <i className="fab fa-php"></i>

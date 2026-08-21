@@ -6,14 +6,12 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  // 1. Siapkan state untuk menampung inputan user
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     content: ''
   });
 
-  // 2. Fungsi untuk menangkap perubahan ketikan di form
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -21,14 +19,12 @@ const Contact = () => {
     });
   };
 
-  // 3. Fungsi menembak data ke API Laravel
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage('');
     
     try {
-      // Melakukan HTTP POST request ke server Laravel (Pastikan port Laravel-mu 8000)
       const response = await fetch('http://localhost:8000/api/contact', {
         method: 'POST',
         headers: {
@@ -43,12 +39,9 @@ const Contact = () => {
       if (response.ok) {
         setIsSubmitting(false);
         setIsSubmitted(true);
-        // Kosongkan form setelah berhasil
         setFormData({ name: '', email: '', content: '' });
-        
         setTimeout(() => setIsSubmitted(false), 4000);
       } else {
-        // Menangkap error validasi dari Laravel
         setIsSubmitting(false);
         setErrorMessage(data.message || 'Gagal mengirim pesan. Periksa kembali form Anda.');
       }
@@ -78,14 +71,21 @@ const Contact = () => {
             </p>
 
             <div className="flex flex-col gap-8">
-              {/* Kontak List (Dipersingkat agar kode tidak terlalu panjang di sini, isi sama seperti sebelumnya) */}
-              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=muhammadcepy123@gmail.com" target="_blank" rel="noreferrer" className="flex items-center gap-6 group">
-                <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-sky-400 text-2xl group-hover:bg-primary group-hover:text-white transition-all"><i className="fas fa-envelope"></i></div>
-                <div><span className="block text-sm text-slate-500 mb-1">Email Surel</span><span className="text-xl font-bold text-white group-hover:text-primary transition-colors">muhammadcepy123@gmail.com</span></div>
+              {/* UBAHAN EMAIL: gap dikurangi untuk mobile, icon tidak mengecil (shrink-0), font responsif, break-all */}
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=muhammadcepy123@gmail.com" target="_blank" rel="noreferrer" className="flex items-center gap-4 sm:gap-6 group">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-sky-400 text-xl sm:text-2xl group-hover:bg-primary group-hover:text-white transition-all"><i className="fas fa-envelope"></i></div>
+                <div className="min-w-0">
+                  <span className="block text-xs sm:text-sm text-slate-500 mb-1">Email Surel</span>
+                  <span className="block text-base sm:text-lg md:text-xl font-bold text-white group-hover:text-primary transition-colors break-all">muhammadcepy123@gmail.com</span>
+                </div>
               </a>
-              <a href="https://wa.me/6287779651205" target="_blank" rel="noreferrer" className="flex items-center gap-6 group">
-                <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-emerald-400 text-3xl group-hover:bg-emerald-500 group-hover:text-white transition-all"><i className="fab fa-whatsapp"></i></div>
-                <div><span className="block text-sm text-slate-500 mb-1">Panggilan / WhatsApp</span><span className="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">+62 877-7965-1205</span></div>
+              {/* UBAHAN WHATSAPP: Menyesuaikan agar senada dengan email */}
+              <a href="https://wa.me/6287779651205" target="_blank" rel="noreferrer" className="flex items-center gap-4 sm:gap-6 group">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-emerald-400 text-2xl sm:text-3xl group-hover:bg-emerald-500 group-hover:text-white transition-all"><i className="fab fa-whatsapp"></i></div>
+                <div className="min-w-0">
+                  <span className="block text-xs sm:text-sm text-slate-500 mb-1">Panggilan / WhatsApp</span>
+                  <span className="block text-base sm:text-lg md:text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">+62 877-7965-1205</span>
+                </div>
               </a>
             </div>
           </motion.div>

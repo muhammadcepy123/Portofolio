@@ -45,7 +45,7 @@ const Experience = () => {
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
             >
               <h2 className="text-5xl md:text-6xl xl:text-7xl font-extrabold text-dark leading-tight mb-6 tracking-tight">
                 Jejak <br />
@@ -68,7 +68,7 @@ const Experience = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
               // Efek hover: geser sedikit ke kanan (translate-x)
               whileHover={{ x: 10 }}
               className="group relative border-t-2 border-slate-200 py-12 flex flex-col md:flex-row gap-6 md:gap-12 hover:border-primary transition-all duration-300 cursor-default"
