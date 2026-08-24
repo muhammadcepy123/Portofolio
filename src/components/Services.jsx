@@ -176,6 +176,213 @@ const Services = () => {
         })}
       </div>
 
+{/* SECTION PAKET HARGA (PRICING PLANS) */}
+<div className="w-full px-6 md:px-12 xl:px-20 mt-32 mb-10 relative z-10">
+        <div className="max-w-8xl mx-auto">
+          
+          {/* Header Pricing */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: "-100px" }}
+            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
+              Pilihan Paket <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-purple-500">Investasi.</span>
+            </h2>
+            <p className="text-lg md:text-xl text-slate-500 max-w-3xl mx-auto">
+              Pilih paket yang paling sesuai dengan skala kebutuhan Anda. Harga fleksibel dan transparan, tanpa biaya tersembunyi.
+            </p>
+          </motion.div>
+
+          {/* Grid Pricing Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-10 items-center">
+            
+            {/* PAKET 1: STARTER */}
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-100px" }}
+              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 }}
+              whileHover={{ y: -10 }}
+              className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-[2.5rem] p-8 md:p-10 shadow-xl shadow-slate-200/50 relative overflow-hidden"
+            >
+              <h3 className="text-2xl font-extrabold text-slate-800 mb-2">Starter</h3>
+              <p className="text-slate-500 mb-6 min-h-[48px]">Cocok untuk Portofolio, Undangan Digital, Company Profile & Landing Page ringkas.</p>
+              <div className="mb-8">
+                <span className="text-slate-400 font-medium text-sm">Mulai dari</span>
+                <div className="text-4xl font-black text-slate-900 mt-1">Rp 100-200<span className="text-xl text-slate-500 font-bold">rb. <br />Tergantung dari pemilihan hostingnya (misal .com .id) akan dikenakan tarif tambahan</span></div>
+              </div>
+              <ul className="flex flex-col gap-4 mb-10">
+                <li className="flex items-start gap-3 text-slate-700 font-medium"><i className="fas fa-check text-sky-500 mt-1"></i> 1-3 Halaman Website</li>
+                <li className="flex items-start gap-3 text-slate-700 font-medium"><i className="fas fa-check text-sky-500 mt-1"></i> Desain Responsive (Mobile Friendly)</li>
+                <li className="flex items-start gap-3 text-slate-700 font-medium"><i className="fas fa-check text-sky-500 mt-1"></i> Revisi Maks 2x</li>
+                <li className="flex items-start gap-3 text-slate-700 font-medium"><i className="fas fa-check text-sky-500 mt-1"></i> Pengerjaan 3-5 Hari Kerja</li>
+                <li className="flex items-start gap-3 text-slate-400 font-medium"><i className="fas fa-times mt-1"></i> Tanpa Database Dinamis</li>
+              </ul>
+              <a href="https://wa.me/6287779651205?text=Halo%20Cepy,%20saya%20tertarik%20dengan%20Paket%20Starter" target="_blank" rel="noreferrer" className="w-full block text-center py-4 rounded-2xl bg-sky-50 text-sky-600 font-bold hover:bg-sky-500 hover:text-white transition-colors duration-300">Pilih Paket Starter</a>
+            </motion.div>
+
+            {/* PAKET 2: PROFESSIONAL (BEST SELLER) */}
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-100px" }}
+              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
+              className="bg-slate-900 border border-slate-700 rounded-[3rem] p-10 md:p-12 shadow-2xl shadow-sky-900/40 relative overflow-hidden transform lg:-translate-y-4 z-10"
+            >
+              {/* Ornamen Glow & Label Best Seller */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/20 rounded-full blur-[80px] pointer-events-none"></div>
+              <div className="absolute top-6 right-6 bg-gradient-to-r from-sky-400 to-blue-500 text-white text-xs font-black uppercase tracking-widest py-1.5 px-4 rounded-full shadow-lg">Best Seller</div>
+              
+              <h3 className="text-2xl font-extrabold text-white mb-2 relative z-10">Professional</h3>
+              <p className="text-slate-400 mb-6 min-h-[48px] relative z-10">Paling pas untuk Web Dinamis. (contohnya web admin untuk pemesanan barang)</p>
+              <div className="mb-8 relative z-10">
+                <span className="text-slate-400 font-medium text-sm">Mulai dari</span>
+                <div className="text-5xl font-black text-white mt-1">Rp 700 Rb - 2 Jt</div>
+              </div>
+              <ul className="flex flex-col gap-4 mb-10 relative z-10">
+                <li className="flex items-start gap-3 text-slate-300 font-medium"><i className="fas fa-check-circle text-sky-400 mt-1 shrink-0"></i> Desain UI/UX Eksklusif (Up to 10 Hal)</li>
+                <li className="flex items-start gap-3 text-slate-300 font-medium"><i className="fas fa-check-circle text-sky-400 mt-1 shrink-0"></i> Database & CMS Admin Panel (Laravel)</li>
+                <li className="flex items-start gap-3 text-slate-300 font-medium"><i className="fas fa-check-circle text-sky-400 mt-1 shrink-0"></i> Animasi Interaktif (Smooth Scroll)</li>
+                <li className="flex items-start gap-3 text-slate-300 font-medium"><i className="fas fa-check-circle text-sky-400 mt-1 shrink-0"></i> Revisi Maks 4x</li>
+                <li className="flex items-start gap-3 text-slate-300 font-medium"><i className="fas fa-check-circle text-sky-400 mt-1 shrink-0"></i> Pengerjaan 2-4 Minggu (tergantung dari kompleksitas setiap fiturnya)</li>
+              </ul>
+              <a href="https://wa.me/6287779651205?text=Halo%20Cepy,%20saya%20tertarik%20dengan%20Paket%20Professional" target="_blank" rel="noreferrer" className="w-full block text-center py-4 rounded-2xl bg-gradient-to-r from-sky-400 to-blue-500 text-white font-bold hover:shadow-[0_0_20px_rgba(14,165,233,0.5)] hover:scale-105 active:scale-95 transition-all duration-300 relative z-10">Pilih Paket Professional</a>
+            </motion.div>
+
+            {/* PAKET 3: ENTERPRISE */}
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-100px" }}
+              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.3 }}
+              whileHover={{ y: -10 }}
+              className="bg-white/70 backdrop-blur-xl border border-slate-200 rounded-[2.5rem] p-8 md:p-10 shadow-xl shadow-slate-200/50 relative overflow-hidden"
+            >
+              <h3 className="text-2xl font-extrabold text-slate-800 mb-2">Enterprise</h3>
+              <p className="text-slate-500 mb-6 min-h-[48px]">Aplikasi Mobile (Flutter) & Web Kompleks skala perusahaan.</p>
+              <div className="mb-8">
+                <span className="text-slate-400 font-medium text-sm">Estimasi Fleksibel</span>
+                <div className="text-4xl font-black text-slate-900 mt-1">Custom</div>
+              </div>
+              <ul className="flex flex-col gap-4 mb-10">
+                <li className="flex items-start gap-3 text-slate-700 font-medium"><i className="fas fa-check text-purple-500 mt-1"></i> Full-Stack (Laravel, React, Flutter)</li>
+                <li className="flex items-start gap-3 text-slate-700 font-medium"><i className="fas fa-check text-purple-500 mt-1"></i> Integrasi API Pihak Ketiga & Payment</li>
+                <li className="flex items-start gap-3 text-slate-700 font-medium"><i className="fas fa-check text-purple-500 mt-1"></i> Arsitektur Sistem Terukur & Aman</li>
+                <li className="flex items-start gap-3 text-slate-700 font-medium"><i className="fas fa-check text-purple-500 mt-1"></i> Prioritas Support & Maintenance 1 Bulan</li>
+                <li className="flex items-start gap-3 text-slate-700 font-medium"><i className="fas fa-check text-purple-500 mt-1"></i> Penyerahan Source Code Penuh</li>
+              </ul>
+              <a href="https://wa.me/6287779651205?text=Halo%20Cepy,%20saya%20tertarik%20berdiskusi%20untuk%20Paket%20Enterprise" target="_blank" rel="noreferrer" className="w-full block text-center py-4 rounded-2xl bg-purple-50 text-purple-600 font-bold hover:bg-purple-500 hover:text-white transition-colors duration-300">Konsultasi Sekarang</a>
+            </motion.div>
+
+          </div>
+        </div>
+      </div>
+
+{/* SECTION ATURAN & KEBIJAKAN (RULES) */}
+<div className="w-full px-6 md:px-12 xl:px-20 mt-16 mb-16 relative z-10">
+        <div className="max-w-8xl mx-auto">
+          
+          {/* Header Rules */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: "-100px" }}
+            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-6">
+              Ketentuan & <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-indigo-500">Transparansi Kerja</span>
+            </h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+              Kerja sama yang hebat berawal dari komunikasi yang jelas. Berikut adalah panduan komitmen layanan saya untuk proyek Anda.
+            </p>
+          </motion.div>
+
+          {/* Grid Rules */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            
+            {/* Rule 1: Waktu & Express */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-100px" }}
+              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 }}
+              whileHover={{ y: -5 }}
+              className="bg-white/60 backdrop-blur-xl border border-slate-200 rounded-3xl p-8 shadow-xl shadow-slate-200/40 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-sky-100 rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-sky-100 text-sky-500 flex items-center justify-center text-2xl"><i className="fas fa-shipping-fast"></i></div>
+                <h3 className="text-xl font-extrabold text-slate-800">Estimasi Waktu & Jalur Cepat</h3>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                Waktu pengerjaan standar disesuaikan dengan skala proyek. Jika Anda membutuhkan penyelesaian lebih cepat dari tenggat normal (<strong>Express/Prioritas</strong>), akan dikenakan tarif tambahan sesuai kesepakatan.
+              </p>
+            </motion.div>
+
+            {/* Rule 2: Perubahan Krusial */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-100px" }}
+              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
+              whileHover={{ y: -5 }}
+              className="bg-white/60 backdrop-blur-xl border border-slate-200 rounded-3xl p-8 shadow-xl shadow-slate-200/40 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-100 rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-500 flex items-center justify-center text-2xl"><i className="fas fa-file-signature"></i></div>
+                <h3 className="text-xl font-extrabold text-slate-800">Perubahan Krusial (Scope Creep)</h3>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                Revisi minor dilayani secara gratis (sesuai jatah). Namun, setelah <em>deal</em> awal disepakati, <strong>penambahan fitur baru atau perombakan sistem yang bersifat krusial</strong> di tengah pengerjaan akan dihitung sebagai tarif <em>add-on</em> tambahan.
+              </p>
+            </motion.div>
+
+            {/* Rule 3: Sistem Pembayaran */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-100px" }}
+              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.3 }}
+              whileHover={{ y: -5 }}
+              className="bg-white/60 backdrop-blur-xl border border-slate-200 rounded-3xl p-8 shadow-xl shadow-slate-200/40 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-100 rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-500 flex items-center justify-center text-2xl"><i className="fas fa-handshake"></i></div>
+                <h3 className="text-xl font-extrabold text-slate-800">Sistem Pembayaran Terjamin</h3>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                Untuk keamanan bersama, proyek dimulai setelah pembayaran DP (Down Payment) minimal 30% - 50%. Sisa pelunasan dibayarkan ketika proyek 100% selesai dan siap di-<em>hosting</em> atau diserahkan kepada klien.
+              </p>
+            </motion.div>
+
+            {/* Rule 4: Garansi & Maintenance */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-100px" }}
+              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.4 }}
+              whileHover={{ y: -5 }}
+              className="bg-white/60 backdrop-blur-xl border border-slate-200 rounded-3xl p-8 shadow-xl shadow-slate-200/40 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-rose-100 rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-rose-100 text-rose-500 flex items-center justify-center text-2xl"><i className="fas fa-shield-alt"></i></div>
+                <h3 className="text-xl font-extrabold text-slate-800">Garansi & Perawatan (Maintenance)</h3>
+              </div>
+              <p className="text-slate-600 leading-relaxed">
+                Setiap <em>project</em> yang selesai dilengkapi dengan garansi <em>bug-fixing</em> selama periode tertentu. Untuk layanan pemeliharaan server, domain, atau <em>update</em> berkala, tersedia dalam paket berlangganan terpisah.
+              </p>
+            </motion.div>
+
+          </div>
+        </div>
+      </div>
       {/* CALL TO ACTION (CTA) SUPER PREMIUM */}
       <div className="w-full px-6 md:px-12 xl:px-20 mt-32 relative z-10">
         <motion.div 
