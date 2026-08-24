@@ -44,7 +44,7 @@ const Experience = () => {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: false, margin: "-50px" }}
               transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
             >
               <h2 className="text-5xl md:text-6xl xl:text-7xl font-extrabold text-dark leading-tight mb-6 tracking-tight">
@@ -67,7 +67,7 @@ const Experience = () => {
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: false, margin: "-50px" }}
               transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
               // Efek hover: geser sedikit ke kanan (translate-x)
               whileHover={{ x: 10 }}

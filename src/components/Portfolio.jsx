@@ -69,7 +69,7 @@ const Portfolio = () => {
               <motion.div 
                 initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: false, margin: "-100px" }}
                 transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
                 className="w-full lg:w-3/5 relative rounded-[2rem] overflow-hidden shadow-2xl bg-slate-100 cursor-pointer"
                 onClick={() => setSelectedProject(project)}
@@ -98,7 +98,7 @@ const Portfolio = () => {
               <motion.div 
                 initial={{ opacity: 0, x: isEven ? 50 : -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: false, margin: "-100px" }}
                 transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
                 className="w-full lg:w-2/5 flex flex-col"
               >

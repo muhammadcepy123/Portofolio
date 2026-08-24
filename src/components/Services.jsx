@@ -95,7 +95,7 @@ const Services = () => {
                 <motion.div 
                   initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ once: false, margin: "-100px" }}
                   transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 }}
                   className="w-full lg:w-1/2 flex flex-col relative z-20"
                 >
@@ -131,7 +131,7 @@ const Services = () => {
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ once: false, margin: "-100px" }}
                   transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.3 }}
                   className="w-full lg:w-1/2 flex justify-center items-center relative min-h-[400px] lg:min-h-[600px]"
                 >

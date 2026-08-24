@@ -61,7 +61,7 @@ const Contact = () => {
           <motion.div animate={{ rotate: 360, scale: [1, 1.1, 1] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute -top-32 -left-32 w-96 h-96 border-[40px] border-primary/10 rounded-full blur-2xl" />
           <div className="absolute bottom-0 right-0 w-64 h-64 bg-secondary/10 rounded-tl-full blur-3xl"></div>
 
-          <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative z-10">
+          <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false }} transition={{ duration: 0.8 }} className="relative z-10">
             <h2 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
               Mari Mulai <br />
               <span className="text-primary">Sesuatu yang Besar.</span>
@@ -93,7 +93,7 @@ const Contact = () => {
 
         {/* BAGIAN KANAN */}
         <div className="w-full lg:w-1/2 bg-slate-50 px-6 md:px-12 xl:px-20 pt-16 lg:pt-24 pb-16 flex flex-col justify-center">
-          <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="w-full max-w-xl mx-auto lg:mx-0">
+          <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false }} transition={{ duration: 0.8, delay: 0.2 }} className="w-full max-w-xl mx-auto lg:mx-0">
             <h3 className="text-3xl font-bold text-dark mb-8">Kirim Pesan Langsung</h3>
             
             {errorMessage && (

@@ -21,7 +21,7 @@ const About = () => {
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.6 }}
         className="mb-12"
       >
@@ -38,7 +38,7 @@ const About = () => {
         <motion.div 
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="md:col-span-2 bg-slate-50 p-8 md:p-10 rounded-[2rem] border border-slate-100 relative overflow-hidden group hover:shadow-lg transition-shadow duration-500"
         >
@@ -58,7 +58,7 @@ const About = () => {
         <motion.div 
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="bg-dark text-white p-8 md:p-10 rounded-[2rem] relative overflow-hidden flex flex-col justify-center group hover:shadow-xl transition-shadow duration-500"
         >
@@ -101,7 +101,7 @@ const About = () => {
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="md:col-span-3 bg-white border border-slate-100 p-8 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col justify-center relative"
         >
