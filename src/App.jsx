@@ -1,20 +1,19 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Experience from './components/Experience';
-import Portfolio from './components/Portfolio';
-import Contact from './components/Contact';
+import Home from './components/Home';
+import Services from './components/Services'; // File jasa yang akan kita buat nanti
 
 function App() {
   return (
-    <div className="bg-slate-50 min-h-screen overflow-x-hidden relative">
-      <Navbar />
-      <Hero />
-      <About />
-      <Experience />
-      <Portfolio />
-      <Contact />
-    </div>
+    <Router>
+      <div className="bg-slate-50 min-h-screen overflow-x-hidden relative">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
