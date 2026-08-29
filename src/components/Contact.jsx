@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,10 +27,7 @@ const Contact = () => {
     try {
       const response = await fetch('http://localhost:8000/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(formData)
       });
 
@@ -43,133 +40,158 @@ const Contact = () => {
         setTimeout(() => setIsSubmitted(false), 4000);
       } else {
         setIsSubmitting(false);
-        setErrorMessage(data.message || 'Gagal mengirim pesan. Periksa kembali form Anda.');
+        setErrorMessage(data.message || 'Gagal mengirim pesan. Periksa kembali isian Anda.');
       }
     } catch (error) {
       setIsSubmitting(false);
-      setErrorMessage('Terjadi kesalahan jaringan. Pastikan server API menyala.');
-      console.error('Error:', error);
+      setErrorMessage('Terjadi kesalahan jaringan. Pastikan koneksi internet stabil.');
     }
   };
 
   return (
-    <section id="contact" className="w-full flex flex-col">
-      <div className="w-full flex flex-col lg:flex-row min-h-[90vh]">
+    <section id="contact" className="w-full relative bg-[#fafcff] overflow-hidden pt-32 pb-0">
+      
+      {/* MASSIVE GLOWING ORBS IN BACKGROUND */}
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-sky-200/50 via-indigo-100/40 to-transparent rounded-full blur-[120px] pointer-events-none -translate-y-1/3 translate-x-1/3"></div>
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-rose-200/40 via-sky-100/30 to-transparent rounded-full blur-[120px] pointer-events-none translate-y-1/4 -translate-x-1/4"></div>
+
+      <div className="max-w-[85rem] mx-auto px-6 md:px-12 xl:px-20 relative z-10 mb-20">
         
-        {/* BAGIAN KIRI */}
-        <div className="w-full lg:w-1/2 bg-dark px-6 md:px-12 xl:px-20 pt-24 pb-16 relative overflow-hidden flex flex-col justify-center">
-          <motion.div animate={{ rotate: 360, scale: [1, 1.1, 1] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute -top-32 -left-32 w-96 h-96 border-[40px] border-primary/10 rounded-full blur-2xl" />
-          <div className="absolute bottom-0 right-0 w-64 h-64 bg-secondary/10 rounded-tl-full blur-3xl"></div>
-
-          <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false }} transition={{ duration: 0.8 }} className="relative z-10">
-            <h2 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
-              Mari Mulai <br />
-              <span className="text-primary">Sesuatu yang Besar.</span>
-            </h2>
-            <p className="text-lg text-slate-400 mb-12 max-w-lg">
-              Saya siap membantu mewujudkan ide Anda menjadi aplikasi web atau mobile yang luar biasa. Hubungi saya melalui kontak di bawah ini.
-            </p>
-
-            <div className="flex flex-col gap-8">
-              {/* UBAHAN EMAIL: gap dikurangi untuk mobile, icon tidak mengecil (shrink-0), font responsif, break-all */}
-              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=muhammadcepy123@gmail.com" target="_blank" rel="noreferrer" className="flex items-center gap-4 sm:gap-6 group">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-sky-400 text-xl sm:text-2xl group-hover:bg-primary group-hover:text-white transition-all"><i className="fas fa-envelope"></i></div>
-                <div className="min-w-0">
-                  <span className="block text-xs sm:text-sm text-slate-500 mb-1">Email Surel</span>
-                  <span className="block text-base sm:text-lg md:text-xl font-bold text-white group-hover:text-primary transition-colors break-all">muhammadcepy123@gmail.com</span>
-                </div>
-              </a>
-              {/* UBAHAN WHATSAPP: Menyesuaikan agar senada dengan email */}
-              <a href="https://wa.me/6287779651205" target="_blank" rel="noreferrer" className="flex items-center gap-4 sm:gap-6 group">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-emerald-400 text-2xl sm:text-3xl group-hover:bg-emerald-500 group-hover:text-white transition-all"><i className="fab fa-whatsapp"></i></div>
-                <div className="min-w-0">
-                  <span className="block text-xs sm:text-sm text-slate-500 mb-1">Panggilan / WhatsApp</span>
-                  <span className="block text-base sm:text-lg md:text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">+62 877-7965-1205</span>
-                </div>
-              </a>
-            </div>
+        {/* HEADER SECTION */}
+        <div className="text-center mb-20 max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white shadow-sm border border-slate-200 text-sky-600 font-bold text-xs uppercase tracking-widest mb-6"
+          >
+            <i className="fas fa-paper-plane text-base"></i> Let's Talk
           </motion.div>
+          
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 tracking-tighter mb-6"
+          >
+            Mari Mulai <br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-indigo-600">Sesuatu yang Besar.</span>
+          </motion.h2>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ delay: 0.1 }}
+            className="text-lg md:text-xl text-slate-500 font-light"
+          >
+            Punya ide aplikasi brilian atau butuh diskusi teknis? Jangan ragu untuk menyapa, saya siap mendengarkan.
+          </motion.p>
         </div>
 
-        {/* BAGIAN KANAN */}
-        <div className="w-full lg:w-1/2 bg-slate-50 px-6 md:px-12 xl:px-20 pt-16 lg:pt-24 pb-16 flex flex-col justify-center">
-          <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false }} transition={{ duration: 0.8, delay: 0.2 }} className="w-full max-w-xl mx-auto lg:mx-0">
-            <h3 className="text-3xl font-bold text-dark mb-8">Kirim Pesan Langsung</h3>
-            
-            {errorMessage && (
-              <div className="mb-6 p-4 bg-red-100 border border-red-300 text-red-600 rounded-xl">
-                {errorMessage}
+        {/* MASSIVE FORM CONTAINER */}
+        <div className="flex flex-col lg:flex-row gap-0 bg-white/70 backdrop-blur-2xl rounded-[3rem] shadow-[0_30px_100px_-20px_rgba(0,0,0,0.1)] border border-white overflow-hidden">
+          
+          {/* KOLOM KIRI: Informasi Kontak */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false }}
+            className="w-full lg:w-2/5 p-10 md:p-16 bg-slate-900 flex flex-col justify-between text-left relative overflow-hidden"
+          >
+            {/* Aksen Latar Hitam */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/20 blur-[80px] rounded-full pointer-events-none"></div>
+
+            <div className="relative z-10">
+              <h3 className="text-3xl md:text-4xl font-black text-white mb-6">Informasi Kontak.</h3>
+              <p className="text-slate-400 mb-12 text-lg font-light leading-relaxed">
+                Pilih metode komunikasi yang paling nyaman untuk Anda. Saya akan membalas secepat kilat!
+              </p>
+
+              <div className="flex flex-col gap-6">
+                
+                {/* Tombol Email */}
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=muhammadcepy123@gmail.com" target="_blank" rel="noreferrer" className="group flex items-center gap-4 md:gap-6 p-4 md:p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-sky-500/20 hover:border-sky-500/50 transition-all duration-300 h-auto">
+                  {/* Ikon dikunci ukurannya dengan shrink-0 */}
+                  <div className="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-2xl bg-white/10 flex items-center justify-center text-xl md:text-2xl text-sky-400 group-hover:scale-110 transition-transform">
+                    <i className="fas fa-envelope"></i>
+                  </div>
+                  <div className="flex-1">
+                    <span className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Email Surel</span>
+                    {/* Menggunakan break-all agar teks turun ke bawah jika layar sempit, bukan terpotong */}
+                    <span className="block text-sm md:text-lg font-bold text-white group-hover:text-sky-300 transition-colors break-all">
+                      muhammadcepy123@gmail.com
+                    </span>
+                  </div>
+                </a>
+
+                {/* Tombol WhatsApp */}
+                <a href="https://wa.me/6287779651205" target="_blank" rel="noreferrer" className="group flex items-center gap-4 md:gap-6 p-4 md:p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-emerald-500/20 hover:border-emerald-500/50 transition-all duration-300 h-auto">
+                  {/* Ikon dikunci ukurannya dengan shrink-0 */}
+                  <div className="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-2xl bg-white/10 flex items-center justify-center text-2xl md:text-3xl text-emerald-400 group-hover:scale-110 transition-transform">
+                    <i className="fab fa-whatsapp"></i>
+                  </div>
+                  <div className="flex-1">
+                    <span className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Panggilan / WA</span>
+                    <span className="block text-sm md:text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
+                      +62 877-7965-1205
+                    </span>
+                  </div>
+                </a>
+
               </div>
-            )}
+            </div>
+          </motion.div>
+
+          {/* KOLOM KANAN: Form */}
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false }}
+            className="w-full lg:w-3/5 p-10 md:p-16 text-left"
+          >
+            <h3 className="text-3xl font-black text-slate-900 mb-10">Kirim Pesan Langsung</h3>
+
+            <AnimatePresence>
+              {errorMessage && (
+                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="mb-8 p-5 bg-red-50 border-l-4 border-red-500 text-red-600 rounded-r-xl font-bold">
+                  {errorMessage}
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-              
-              <div className="relative">
-                <input 
-                  type="text" 
-                  id="name" 
-                  value={formData.name}
-                  onChange={handleChange}
-                  required 
-                  className="w-full bg-transparent border-b-2 border-slate-300 px-0 py-2 text-dark text-lg focus:outline-none focus:border-primary transition-colors peer placeholder-transparent" 
-                  placeholder="Nama Lengkap" 
-                />
-                <label htmlFor="name" className="absolute left-0 -top-4 text-sm text-primary font-bold transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:text-slate-400 peer-placeholder-shown:font-normal peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-sm peer-focus:text-primary peer-focus:font-bold cursor-text">
-                  Nama Lengkap
-                </label>
+              <div className="flex flex-col md:flex-row gap-8">
+                <div className="flex-1 flex flex-col gap-3">
+                  <label htmlFor="name" className="text-sm font-bold text-slate-700 ml-1">Nama Lengkap</label>
+                  <input type="text" id="name" value={formData.name} onChange={handleChange} required className="w-full bg-slate-50 border-2 border-slate-100 px-6 py-4 rounded-2xl text-slate-800 text-lg focus:outline-none focus:border-sky-500 focus:bg-white transition-all font-medium" placeholder="Tulis nama Anda" />
+                </div>
+                <div className="flex-1 flex flex-col gap-3">
+                  <label htmlFor="email" className="text-sm font-bold text-slate-700 ml-1">Alamat Email</label>
+                  <input type="email" id="email" value={formData.email} onChange={handleChange} required className="w-full bg-slate-50 border-2 border-slate-100 px-6 py-4 rounded-2xl text-slate-800 text-lg focus:outline-none focus:border-sky-500 focus:bg-white transition-all font-medium" placeholder="contoh@email.com" />
+                </div>
               </div>
 
-              <div className="relative">
-                <input 
-                  type="email" 
-                  id="email" 
-                  value={formData.email}
-                  onChange={handleChange}
-                  required 
-                  className="w-full bg-transparent border-b-2 border-slate-300 px-0 py-2 text-dark text-lg focus:outline-none focus:border-primary transition-colors peer placeholder-transparent" 
-                  placeholder="Email Anda" 
-                />
-                <label htmlFor="email" className="absolute left-0 -top-4 text-sm text-primary font-bold transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:text-slate-400 peer-placeholder-shown:font-normal peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-sm peer-focus:text-primary peer-focus:font-bold cursor-text">
-                  Alamat Email
-                </label>
+              <div className="flex flex-col gap-3">
+                <label htmlFor="content" className="text-sm font-bold text-slate-700 ml-1">Detail Pesan / Tawaran</label>
+                <textarea id="content" value={formData.content} onChange={handleChange} rows="5" required className="w-full bg-slate-50 border-2 border-slate-100 px-6 py-5 rounded-2xl text-slate-800 text-lg focus:outline-none focus:border-sky-500 focus:bg-white transition-all resize-y font-medium" placeholder="Ceritakan tentang proyek atau ide Anda di sini..."></textarea>
               </div>
 
-              <div className="relative mt-4">
-                <textarea 
-                  id="content" 
-                  value={formData.content}
-                  onChange={handleChange}
-                  rows="4" 
-                  required 
-                  className="w-full bg-transparent border-b-2 border-slate-300 px-0 py-2 text-dark text-lg focus:outline-none focus:border-primary transition-colors peer placeholder-transparent resize-y" 
-                  placeholder="Ceritakan detail proyek..."
-                ></textarea>
-                <label htmlFor="content" className="absolute left-0 -top-4 text-sm text-primary font-bold transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:text-slate-400 peer-placeholder-shown:font-normal peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-sm peer-focus:text-primary peer-focus:font-bold cursor-text">
-                  Detail Pesan / Tawaran Proyek
-                </label>
-              </div>
-
-              <button 
-                type="submit" 
-                disabled={isSubmitting || isSubmitted}
-                className={`w-full py-5 mt-4 rounded-none text-xl font-bold transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden relative ${
-                  isSubmitted ? 'bg-emerald-500 text-white' : 'bg-dark text-white hover:bg-primary'
-                }`}
-              >
-                {isSubmitting ? (
-                  <><i className="fas fa-circle-notch fa-spin"></i> Sedang Mengirim...</>
-                ) : isSubmitted ? (
-                  <><i className="fas fa-check"></i> Pesan Terkirim ke Database!</>
-                ) : (
-                  <>Kirim Pesan <i className="fas fa-arrow-right"></i></>
-                )}
+              <button type="submit" disabled={isSubmitting || isSubmitted} className={`w-full py-5 rounded-2xl text-xl font-black transition-all duration-300 flex items-center justify-center gap-4 ${isSubmitted ? 'bg-emerald-500 text-white shadow-[0_10px_30px_rgba(16,185,129,0.4)]' : 'bg-slate-900 text-white hover:bg-sky-500 hover:shadow-[0_10px_40px_rgba(14,165,233,0.4)] hover:-translate-y-1'}`}>
+                {isSubmitting ? <><i className="fas fa-circle-notch fa-spin"></i> Memproses...</> : isSubmitted ? <><i className="fas fa-check-circle text-2xl"></i> Terkirim!</> : <>Kirim Pesan <i className="fas fa-paper-plane"></i></>}
               </button>
             </form>
           </motion.div>
+
         </div>
       </div>
-      <footer className="w-full bg-dark border-t border-white/10 text-center py-8">
-        <p className="text-slate-400 text-lg">&copy; 2026 <span className="text-white font-bold tracking-wide">Muhammad Cepy</span>.</p>
+
+      <footer className="w-full bg-white border-t border-slate-200 py-10 relative z-10 text-center">
+        <p className="text-slate-500 text-base font-medium">
+          Didesain & Dikembangkan oleh <span className="text-slate-900 font-black tracking-wide">Muhammad Cepy</span>.
+          <br className="md:hidden" />
+          <span className="hidden md:inline"> &copy; </span> 2026. Hak Cipta Dilindungi.
+        </p>
       </footer>
     </section>
   );
