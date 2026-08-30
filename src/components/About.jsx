@@ -81,19 +81,31 @@ const About = () => {
             <div className="w-3.5 h-3.5 rounded-full bg-emerald-400 shadow-inner"></div>
           </div>
 
-          <div className="flex flex-row md:flex-col p-4 md:p-6 gap-3 overflow-x-auto custom-scrollbar">
+          {/* PERUBAHAN: Penanda visual untuk Mobile agar tahu bisa digeser */}
+          <div className="flex md:hidden items-center justify-between px-6 pt-5 pb-1">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Menu</span>
+            <span className="flex items-center gap-1.5 text-[10px] font-bold text-sky-500 uppercase tracking-widest animate-pulse">
+              Geser <i className="fas fa-arrow-right"></i>
+            </span>
+          </div>
+
+          {/* Kontainer Tombol */}
+          <div className="flex flex-row md:flex-col px-4 md:p-6 gap-3 overflow-x-auto snap-x snap-mandatory pb-6 md:pb-6 pt-2 md:pt-6" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {menuTabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-4 px-6 py-4 rounded-2xl font-bold text-sm transition-all whitespace-nowrap md:whitespace-normal text-left relative overflow-hidden group ${
+                className={`flex items-center gap-4 px-6 py-4 rounded-2xl font-bold text-sm transition-all whitespace-nowrap md:whitespace-normal text-left relative overflow-hidden group snap-center shrink-0 ${
                   activeTab === tab.id 
                     ? 'bg-white text-sky-600 shadow-md border border-slate-100' 
                     : 'text-slate-500 hover:text-slate-800 hover:bg-white/60 border border-transparent'
                 }`}
               >
                 {activeTab === tab.id && (
-                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-sky-500 rounded-r-full"></span>
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-sky-500 rounded-r-full hidden md:block"></span>
+                )}
+                {activeTab === tab.id && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-1.5 bg-sky-500 rounded-t-full block md:hidden"></span>
                 )}
                 <i className={`${tab.icon} text-lg ${activeTab === tab.id ? 'text-sky-500' : 'text-slate-400 group-hover:text-sky-400 transition-colors'}`}></i>
                 {tab.name}

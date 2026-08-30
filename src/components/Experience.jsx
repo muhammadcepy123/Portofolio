@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Experience = () => {
@@ -50,6 +50,7 @@ const Experience = () => {
   ];
 
   const [activeItem, setActiveItem] = useState(journeyData[0]);
+  const detailRef = useRef(null); // PERUBAHAN: Referensi untuk target auto-scroll
 
   return (
     <section id="experience" className="w-full py-32 px-6 md:px-12 xl:px-20 bg-white relative overflow-hidden">
@@ -102,7 +103,15 @@ const Experience = () => {
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: false }}
-                  onClick={() => setActiveItem(item)}
+                  onClick={() => {
+                    setActiveItem(item);
+                    // PERUBAHAN: Jika di mode mobile (layar < 1024px), scroll halus ke kolom detail
+                    if (window.innerWidth < 1024 && detailRef.current) {
+                      setTimeout(() => {
+                        detailRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      }, 200);
+                    }
+                  }}
                   className={`cursor-pointer rounded-[2rem] p-5 md:p-6 transition-all duration-300 border-l-8 flex items-center justify-between group ${
                     isActive 
                       ? `bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border-${item.color}-500 scale-105 z-10` 
@@ -132,7 +141,8 @@ const Experience = () => {
           </div>
 
           {/* KOLOM KANAN: Layar Detail / Spotlight */}
-          <div className="w-full lg:w-3/5">
+          {/* PERUBAHAN: Menambahkan ref={detailRef} ke container ini agar bisa jadi target scroll */}
+          <div ref={detailRef} className="w-full lg:w-3/5 scroll-mt-24">
             <div className="bg-slate-900 rounded-[3rem] shadow-2xl p-8 md:p-14 min-h-[500px] relative overflow-hidden flex flex-col justify-center border border-slate-800">
               
               {/* Glow Belakang */}

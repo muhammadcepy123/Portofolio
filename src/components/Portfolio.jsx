@@ -43,8 +43,8 @@ const Portfolio = () => {
       desc: 'Sistem manajemen keluhan warga untuk perangkat desa, memungkinkan pelacakan status laporan, tindak lanjut, dan rekapitulasi data secara efisien.',
       tech: ['Laravel', 'Tailwind', 'MySQL'],
       image: 'pgd-web.png', 
-      link: 'https://pengaduan-desa-six.vercel.app/', // Link sudah diperbarui ke Vercel
-      linkText: 'Kunjungi Web', // Teks diubah agar lebih intuitif
+      link: 'https://pengaduan-desa-six.vercel.app/',
+      linkText: 'Kunjungi Web',
       icon: 'fas fa-desktop'
     }
   ];
@@ -52,7 +52,6 @@ const Portfolio = () => {
   const [activeId, setActiveId] = useState(projects[0].id);
 
   return (
-    // DIUBAH JADI DARK MODE: bg-[#020617] (Slate 950)
     <section id="portfolio" className="w-full py-32 px-6 md:px-12 xl:px-20 bg-[#020617] relative overflow-hidden">
       
       {/* CINEMATIC GLOWING BACKGROUNDS */}
@@ -93,8 +92,9 @@ const Portfolio = () => {
         </motion.p>
       </div>
 
-      {/* ACCORDION GALLERY CONTAINER (Lebih Besar) */}
-      <div className="max-w-[90rem] mx-auto w-full flex flex-col lg:flex-row h-[800px] lg:h-[600px] gap-4 md:gap-6 relative z-10">
+      {/* ACCORDION GALLERY CONTAINER */}
+      {/* PERUBAHAN: Menambah height di mode mobile (h-[1000px] md:h-[800px]) biar nggak kepotong */}
+      <div className="max-w-[90rem] mx-auto w-full flex flex-col lg:flex-row h-[1000px] md:h-[800px] lg:h-[600px] gap-4 md:gap-6 relative z-10">
         
         {projects.map((project) => {
           const isActive = activeId === project.id;
@@ -124,20 +124,21 @@ const Portfolio = () => {
                 ${isActive ? 'from-[#020617] via-[#020617]/50 to-transparent' : 'from-[#020617]/90 to-[#020617]/40'}
               `}></div>
 
-              <motion.div layout="position" className="relative z-10 p-6 md:p-10 flex flex-col justify-end h-full w-full">
+              {/* PERUBAHAN: Mengurangi padding di mode mobile (p-5 jadi p-6/10) */}
+              <motion.div layout="position" className="relative z-10 p-5 md:p-10 flex flex-col justify-end h-full w-full">
                 
-                <div className="flex items-center gap-5 mb-2 overflow-hidden">
-                  <div className={`shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center backdrop-blur-xl border transition-all duration-500
+                <div className="flex items-center gap-4 md:gap-5 mb-2 overflow-hidden">
+                  <div className={`shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center backdrop-blur-xl border transition-all duration-500
                     ${isActive ? 'bg-cyan-500 border-cyan-400 text-slate-900 shadow-[0_0_30px_rgba(34,211,238,0.5)]' : 'bg-white/10 border-white/20 text-white'}
                   `}>
-                    <i className={`${project.icon} text-2xl`}></i>
+                    <i className={`${project.icon} text-xl md:text-2xl`}></i>
                   </div>
                   
-                  <motion.div layout="position" className="flex flex-col justify-center min-w-[250px]">
-                    <span className={`text-sm font-black uppercase tracking-widest transition-colors duration-300 ${isActive ? 'text-cyan-400' : 'text-slate-500'}`}>
+                  <motion.div layout="position" className="flex flex-col justify-center min-w-[200px] md:min-w-[250px]">
+                    <span className={`text-xs md:text-sm font-black uppercase tracking-widest transition-colors duration-300 ${isActive ? 'text-cyan-400' : 'text-slate-500'}`}>
                       {project.category}
                     </span>
-                    <h3 className="text-3xl md:text-4xl font-black text-white whitespace-nowrap truncate">
+                    <h3 className="text-2xl md:text-4xl font-black text-white whitespace-nowrap truncate">
                       {project.title}
                     </h3>
                   </motion.div>
@@ -150,26 +151,28 @@ const Portfolio = () => {
                       animate={{ opacity: 1, height: 'auto', y: 0 }}
                       exit={{ opacity: 0, height: 0, y: 20 }}
                       transition={{ duration: 0.4 }}
-                      className="overflow-hidden mt-4"
+                      className="overflow-hidden mt-2 md:mt-4"
                     >
-                      <p className="text-slate-300 mb-8 max-w-2xl text-base md:text-lg font-light leading-relaxed">
+                      {/* PERUBAHAN: Font lebih kecil di mobile, margin dikurangi */}
+                      <p className="text-slate-300 mb-5 md:mb-8 max-w-2xl text-sm md:text-lg font-light leading-relaxed">
                         {project.desc}
                       </p>
                       
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-                        <div className="flex flex-wrap gap-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 md:gap-6">
+                        <div className="flex flex-wrap gap-2 md:gap-3">
                           {project.tech.map((t, i) => (
-                            <span key={i} className="px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-bold rounded-xl">
+                            <span key={i} className="px-3 py-1.5 md:px-4 md:py-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs md:text-sm font-bold rounded-xl">
                               {t}
                             </span>
                           ))}
                         </div>
 
+                        {/* PERUBAHAN: Tombol lebih kecil proporsinya di mobile agar hemat tempat */}
                         <a 
                           href={project.link}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-slate-900 font-black text-base rounded-full hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.6)] transition-all shrink-0"
+                          className="inline-flex items-center justify-center gap-2 md:gap-3 px-6 py-3 md:px-8 md:py-4 bg-white text-slate-900 font-black text-sm md:text-base rounded-full hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.6)] transition-all shrink-0"
                         >
                           {project.linkText} <i className="fas fa-arrow-right"></i>
                         </a>
