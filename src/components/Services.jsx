@@ -1,6 +1,24 @@
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Services = () => {
+  // ==========================================
+  // STATE UNTUK MODAL PORTFOLIO
+  // ==========================================
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  // Mencegah scroll pada body ketika modal terbuka
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [selectedProject]);
+
+  // ==========================================
+  // DATA SERVICES & ATURAN
+  // ==========================================
   const services = [
     {
       id: "web-app",
@@ -10,7 +28,7 @@ const Services = () => {
       gradient: "from-sky-400 to-blue-600",
       icon: "fas fa-laptop-code",
       desc: "Hadirkan inovasi bisnis Anda ke dalam genggaman. Saya membangun aplikasi web (Laravel & React) serta mobile app (Flutter) yang siap rilis di PlayStore.",
-      features: ["Sistem ERP & Manajemen", "Aplikasi Pengaduan desa", "Website Pemesanan"]
+      features: ["Sistem ERP & Manajemen", "Aplikasi Pengaduan Desa", "Website Pemesanan"]
     },
     {
       id: "portfolio",
@@ -31,24 +49,6 @@ const Services = () => {
       icon: "fas fa-heart",
       desc: "Bagikan momen spesial Anda dengan undangan digital berbasis website yang interaktif, praktis, dan dapat menjangkau tamu di mana saja.",
       features: ["Tema Undangan Premium", "RSVP & Buku Tamu", "Integrasi Google Maps"]
-    }
-  ];
-
-  const exampleProjects = [
-    {
-      title: "Banyu Digital Admin",
-      category: "Web Dashboard",
-      img: "webadmin.PNG", 
-    },
-    {
-      title: "Banyu Mobile App",
-      category: "Mobile Application",
-      img: "apk.PNG",
-    },
-    {
-      title: "Premium Wedding Invitation",
-      category: "Digital Invitation",
-      img: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069&auto=format&fit=crop",
     }
   ];
 
@@ -87,18 +87,64 @@ const Services = () => {
     }
   ];
 
+  // ==========================================
+  // DATA PORTFOLIO YANG BARU & DIPERLUAS
+  // ==========================================
+  const portfolioProjects = [
+    {
+      id: 1,
+      title: "Banyu Digital Admin",
+      category: "Web Dashboard",
+      img: "webadmin.PNG",
+      desc: "Panel administrasi terpusat yang powerful untuk mengelola data layanan, monitoring pengaduan pelanggan, dan operasional aplikasi secara real-time untuk Perumdam Tirta Darma Ayu.",
+      tech: ["Laravel", "Tailwind CSS", "MySQL", "JavaScript"]
+    },
+    {
+      id: 2,
+      title: "Banyu Mobile App",
+      category: "Mobile Application",
+      img: "apk.PNG",
+      desc: "Aplikasi mobile terintegrasi untuk mempermudah pelayanan informasi publik, pengaduan, dan pengecekan tagihan bagi pelanggan dengan antarmuka yang user-friendly.",
+      tech: ["Flutter", "Dart", "Firebase", "REST API"]
+    },
+    {
+      id: 3,
+      title: "Pengaduan Desa Admin",
+      category: "Web Dashboard",
+      img: "pgd-web.png", // Sesuaikan nama file gambar Anda
+      desc: "Sistem manajemen keluhan warga untuk perangkat desa. Memungkinkan admin/perangkat desa melacak status laporan, memberikan tindak lanjut, dan mencetak rekapitulasi data.",
+      tech: ["Laravel", "Tailwind CSS", "Alpine.js"]
+    },
+    {
+      id: 4,
+      title: "Pengaduan Desa Mobile",
+      category: "Mobile Application",
+      img: "pgd-desa.png", // Sesuaikan nama file gambar Anda
+      desc: "Aplikasi mobile interaktif untuk memudahkan masyarakat desa dalam menyampaikan laporan, aspirasi, dan keluhan secara langsung beserta lampiran foto lokasi kejadian.",
+      tech: ["Flutter", "Dart", "Geolocation API"]
+    },
+    {
+      id: 5,
+      title: "Premium Wedding Invitation",
+      category: "Digital Invitation",
+      img: "undangann.png",
+      desc: "Undangan pernikahan digital berbasis website yang eksklusif. Dilengkapi fitur musik latar, hitung mundur, integrasi Google Maps, RSVP kehadiran, serta ucapan dari tamu.",
+      tech: ["React JS", "Framer Motion", "Tailwind CSS"]
+    }
+  ];
+
   return (
     <section className="w-full min-h-screen bg-[#fafcff] text-slate-800 pt-32 lg:pt-40 pb-0 font-sans relative overflow-hidden">
       
       {/* ========================================== */}
-      {/* BACKGROUND BLOBS (MEMBERI KESAN MEWAH/WAH) */}
+      {/* BACKGROUND BLOBS */}
       {/* ========================================== */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-sky-300/30 via-indigo-300/30 to-purple-300/30 blur-[100px] rounded-full pointer-events-none z-0"></div>
       <div className="absolute top-[40%] right-[-10%] w-[500px] h-[500px] bg-sky-200/40 blur-[120px] rounded-full pointer-events-none z-0"></div>
       <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] bg-indigo-200/30 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
       {/* ========================================== */}
-      {/* 1. HERO SECTION (DYNAMIC CENTERED TO GRID) */}
+      {/* 1. HERO SECTION */}
       {/* ========================================== */}
       <div className="w-full px-6 md:px-12 xl:px-20 mb-32 relative z-10">
         <div className="max-w-4xl mx-auto text-center mb-16">
@@ -161,11 +207,10 @@ const Services = () => {
       </div>
 
       {/* ========================================== */}
-      {/* 2. SERVICES SECTION (STAGGERED / ASYMMETRIC) */}
+      {/* 2. SERVICES SECTION */}
       {/* ========================================== */}
       <div className="w-full px-6 md:px-12 xl:px-20 mb-32 relative z-10">
         <div className="max-w-7xl mx-auto">
-          
           <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16 text-left">
             <div className="max-w-2xl">
               <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">Spesialisasi <span className="text-sky-500">Keahlian.</span></h2>
@@ -183,9 +228,7 @@ const Services = () => {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 className={`bg-white rounded-[2rem] p-8 md:p-10 border border-slate-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_60px_-15px_rgba(14,165,233,0.2)] transition-all duration-500 flex flex-col h-full group relative overflow-hidden ${index === 1 ? 'lg:-translate-y-8' : ''}`}
               >
-                {/* Aksen Hover Belakang */}
                 <div className={`absolute top-0 right-0 w-48 h-48 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 rounded-bl-[100%] transition-opacity duration-500`}></div>
-
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white text-2xl mb-8 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 relative z-10`}>
                   <i className={service.icon}></i>
                 </div>
@@ -213,37 +256,59 @@ const Services = () => {
       </div>
 
       {/* ========================================== */}
-      {/* 3. HASIL PROJEK (ELEVATED MASONRY STYLE)   */}
+      {/* 3. HASIL PROJEK (NEW MASONRY/GRID + MODAL) */}
       {/* ========================================== */}
-      <div className="w-full px-6 md:px-12 xl:px-20 mb-32 relative z-10">
-        <div className="max-w-7xl mx-auto bg-slate-900 rounded-[3rem] p-8 md:p-16 shadow-2xl relative overflow-hidden">
+      <div id="portfolio" className="w-full px-6 md:px-12 xl:px-20 mb-32 relative z-10">
+        <div className="max-w-7xl mx-auto bg-slate-900 rounded-[3rem] p-6 md:p-12 lg:p-16 shadow-2xl relative overflow-hidden">
           {/* Efek Cahaya di Dalam Kotak Gelap */}
           <div className="absolute top-[-20%] left-[-10%] w-[400px] h-[400px] bg-sky-500/20 blur-[100px] rounded-full pointer-events-none"></div>
+          <div className="absolute bottom-[-20%] right-[-10%] w-[400px] h-[400px] bg-purple-500/20 blur-[100px] rounded-full pointer-events-none"></div>
           
-          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16 text-left relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12 text-left relative z-10">
             <div className="max-w-2xl">
-              <h2 className="text-4xl md:text-5xl font-black text-white mb-4">Bukti <span className="text-sky-400">Karya.</span></h2>
-              <p className="text-slate-400 text-lg font-light">Cuplikan antarmuka proyek digital yang telah saya kembangkan.</p>
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md text-sky-400 text-xs font-bold uppercase tracking-widest mb-4 border border-white/10"
+              >
+                <i className="fas fa-layer-group"></i> Showcase Eksklusif
+              </motion.div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">Bukti <span className="text-sky-400">Karya.</span></h2>
+              <p className="text-slate-400 text-lg font-light">Eksplorasi ide menjadi solusi nyata. Klik pada karya di bawah untuk melihat detail selengkapnya.</p>
             </div>
-            <a href="/#portfolio" className="px-8 py-4 bg-white text-slate-900 rounded-full font-bold hover:bg-sky-400 hover:text-white transition-all shadow-lg hover:shadow-sky-400/50 whitespace-nowrap group">
-              Lihat Semua Karya <i className="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-            </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-            {exampleProjects.map((proj, idx) => (
+          {/* GRID LAYOUT SCALABLE */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+            {portfolioProjects.map((proj, idx) => (
               <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: false, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className="group relative rounded-[2rem] overflow-hidden aspect-[4/5] md:aspect-auto md:h-[400px] bg-slate-800 border border-slate-700 cursor-pointer"
+                key={proj.id}
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                onClick={() => setSelectedProject(proj)}
+                className="group relative rounded-[2rem] overflow-hidden aspect-[4/3] bg-slate-800 border border-slate-700 cursor-pointer shadow-lg hover:shadow-sky-500/20 transition-all duration-300"
               >
-                <img src={proj.img} alt={proj.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1120] via-[#0b1120]/40 to-transparent flex flex-col justify-end p-8 text-left translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <span className="text-sky-400 text-xs font-bold uppercase tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">{proj.category}</span>
-                  <h3 className="text-2xl font-bold text-white leading-tight">{proj.title}</h3>
+                <img src={proj.img} alt={proj.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100" />
+                
+                {/* Overlay Hitam saat hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                
+                {/* Text Content dalam Grid */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 text-left">
+                  <span className="text-sky-400 text-xs font-bold uppercase tracking-widest mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    {proj.category}
+                  </span>
+                  <h3 className="text-xl md:text-2xl font-bold text-white leading-tight transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+                    {proj.title}
+                  </h3>
+                  
+                  {/* Icon klik */}
+                  <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform scale-50 group-hover:scale-100 transition-all duration-300 border border-white/20">
+                    <i className="fas fa-expand-alt"></i>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -252,11 +317,10 @@ const Services = () => {
       </div>
 
       {/* ========================================== */}
-      {/* 4. PRICING SECTION (SAAS GLOWING STYLE)    */}
+      {/* 4. PRICING SECTION */}
       {/* ========================================== */}
       <div id="pricing" className="w-full px-6 md:px-12 xl:px-20 mb-32 relative z-10">
         <div className="max-w-7xl mx-auto">
-          
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">Investasi <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-indigo-600">Terjangkau.</span></h2>
             <p className="text-slate-500 text-lg font-light max-w-2xl mx-auto">Pilih paket yang paling sesuai dengan skala dan kebutuhan proyek digital Anda saat ini.</p>
@@ -288,7 +352,7 @@ const Services = () => {
               <a href="https://wa.me/6287779651205?text=Halo%20Cepy,%20saya%20tertarik%20dengan%20Paket%20Starter" target="_blank" rel="noreferrer" className="block w-full py-4 text-center rounded-2xl bg-slate-50 text-slate-700 font-bold hover:bg-slate-100 hover:shadow-md transition-all border border-slate-200">Pilih Starter</a>
             </motion.div>
 
-            {/* PROFESSIONAL (GLOWING CENTER CARD) */}
+            {/* PROFESSIONAL */}
             <motion.div 
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -347,18 +411,16 @@ const Services = () => {
       </div>
 
       {/* ========================================== */}
-      {/* 5. ATURAN KERJA (ZIG-ZAG / FLOATING STEPS) */}
+      {/* 5. ATURAN KERJA */}
       {/* ========================================== */}
       <div className="w-full px-6 md:px-12 xl:px-20 mb-32 relative z-10">
         <div className="max-w-7xl mx-auto">
-          
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">Aturan & <span className="text-indigo-500">Transparansi.</span></h2>
             <p className="text-slate-500 text-lg font-light max-w-2xl mx-auto">Cara kita bekerja sama untuk memastikan hasil proyek yang terarah dan saling menguntungkan.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 relative">
-            {/* Garis Vertikal Samar Penghubung di Tengah (Hanya Desktop) */}
             <div className="hidden md:block absolute left-1/2 top-10 bottom-10 w-px bg-slate-200 -translate-x-1/2 z-0"></div>
 
             {rules.map((rule, index) => (
@@ -380,12 +442,11 @@ const Services = () => {
               </motion.div>
             ))}
           </div>
-
         </div>
       </div>
 
       {/* ========================================== */}
-      {/* 6. CALL TO ACTION (MASSIVE GLASS BANNER)   */}
+      {/* 6. CALL TO ACTION */}
       {/* ========================================== */}
       <div className="w-full px-6 md:px-12 xl:px-20 relative z-10 mb-20">
         <motion.div 
@@ -396,8 +457,6 @@ const Services = () => {
           className="max-w-7xl mx-auto rounded-[3rem] p-1 border border-white/50 bg-gradient-to-br from-sky-400/30 to-indigo-600/30 shadow-2xl relative overflow-hidden"
         >
           <div className="bg-white/70 backdrop-blur-3xl rounded-[2.8rem] p-10 md:p-16 lg:p-20 flex flex-col md:flex-row items-center justify-between gap-10 text-left relative overflow-hidden">
-            
-            {/* Ornamen Transparan Dalam Banner */}
             <div className="absolute -top-20 -right-20 w-64 h-64 bg-sky-400/20 blur-[50px] rounded-full pointer-events-none"></div>
             <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-indigo-500/20 blur-[50px] rounded-full pointer-events-none"></div>
 
@@ -415,9 +474,6 @@ const Services = () => {
         </motion.div>
       </div>
 
-      {/* ========================================== */}
-      {/* 7. FOOTER (WAJIB ADA AGAR RAPI)            */}
-      {/* ========================================== */}
       <footer className="w-full bg-white border-t border-slate-200 py-8 relative z-10 text-center">
         <p className="text-slate-500 text-sm font-medium">
           Didesain & Dikembangkan oleh <span className="text-slate-800 font-bold tracking-wide">Muhammad Cepy</span>.
@@ -425,6 +481,101 @@ const Services = () => {
           <span className="hidden md:inline"> &copy; </span> 2026. Hak Cipta Dilindungi.
         </p>
       </footer>
+
+
+      {/* ========================================== */}
+      {/* 7. MODAL POP-UP PORTFOLIO */}
+      {/* ========================================== */}
+      <AnimatePresence>
+        {selectedProject && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 md:px-12 py-10">
+            {/* Backdrop dengan blur */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+              className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm cursor-pointer"
+            ></motion.div>
+
+            {/* Modal Content */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-[#0b1120] border border-slate-700 rounded-[2rem] shadow-2xl z-10 hide-scrollbar"
+            >
+              {/* Tombol Close */}
+              <button 
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 md:top-6 md:right-6 z-20 w-10 h-10 rounded-full bg-slate-800/50 hover:bg-red-500 text-white flex items-center justify-center transition-colors backdrop-blur-md"
+              >
+                <i className="fas fa-times"></i>
+              </button>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2">
+                {/* Gambar (Kiri) */}
+                <div className="relative h-64 sm:h-80 lg:h-full min-h-[300px] lg:min-h-[500px] w-full bg-slate-800">
+                  <img 
+                    src={selectedProject.img} 
+                    alt={selectedProject.title} 
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  {/* Gradien pemisah untuk tampilan layar kecil */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b1120] to-transparent lg:hidden"></div>
+                </div>
+
+                {/* Info Detail (Kanan) */}
+                <div className="p-8 md:p-12 flex flex-col justify-center text-left">
+                  <span className="inline-block px-4 py-1.5 rounded-full bg-sky-500/10 text-sky-400 text-xs font-bold uppercase tracking-widest border border-sky-500/20 mb-6 w-max">
+                    {selectedProject.category}
+                  </span>
+                  
+                  <h3 className="text-3xl md:text-4xl font-black text-white mb-6 leading-tight">
+                    {selectedProject.title}
+                  </h3>
+                  
+                  <p className="text-slate-400 text-base md:text-lg leading-relaxed font-light mb-8">
+                    {selectedProject.desc}
+                  </p>
+
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">Teknologi Utama:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.tech.map((techItem, i) => (
+                        <span key={i} className="px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 text-sm font-medium">
+                          {techItem}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Placeholder jika nanti butuh tombol "Lihat Live" */}
+                  {/* 
+                  <div className="mt-10">
+                    <button className="px-8 py-3 bg-white text-slate-900 font-bold rounded-full hover:bg-sky-400 hover:text-white transition-colors">
+                      Lihat Website / Aplikasi
+                    </button>
+                  </div> 
+                  */}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <style jsx global>{`
+        /* Utilitas untuk menyembunyikan scrollbar di modal tapi tetap bisa di-scroll */
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
 
     </section>
   );
