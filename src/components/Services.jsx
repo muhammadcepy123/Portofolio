@@ -10,7 +10,7 @@ const Services = () => {
       gradient: "from-sky-400 to-blue-600",
       icon: "fas fa-laptop-code",
       desc: "Hadirkan inovasi bisnis Anda ke dalam genggaman. Saya membangun aplikasi web (Laravel & React) serta mobile app (Flutter) yang siap rilis di PlayStore.",
-      features: ["Sistem ERP & Manajemen", "Aplikasi POS (Kasir)", "Integrasi API Real-time"]
+      features: ["Sistem ERP & Manajemen", "Aplikasi Pengaduan desa", "Website Pemesanan"]
     },
     {
       id: "portfolio",
@@ -275,7 +275,7 @@ const Services = () => {
               <p className="text-slate-500 text-sm mb-8 h-10">Ideal untuk Portofolio, Undangan, atau Landing Page Statis.</p>
               
               <div className="mb-8">
-                <span className="text-4xl font-black text-slate-900">100<span className="text-xl font-normal text-slate-500">rb</span> <span className="text-2xl font-light text-slate-300">-</span> 200<span className="text-xl font-normal text-slate-500">rb</span></span>
+                <span className="text-4xl font-black text-slate-900">80<span className="text-xl font-normal text-slate-500">rb</span> <span className="text-2xl font-light text-slate-300">-</span> 150<span className="text-xl font-normal text-slate-500">rb</span></span>
               </div>
               
               <ul className="flex flex-col gap-4 mb-10 text-sm text-slate-600 font-medium">

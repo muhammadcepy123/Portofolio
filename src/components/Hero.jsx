@@ -164,10 +164,7 @@ const Hero = () => {
               <div className="w-10 h-10 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-lg">
                 <i className="fas fa-check-circle"></i>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-800">10+</h3>
-                <p className="text-xs text-slate-500 font-medium">Projects Done</p>
-              </div>
+              
             </div>
           </motion.div>
 

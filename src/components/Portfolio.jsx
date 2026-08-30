@@ -26,15 +26,26 @@ const Portfolio = () => {
       icon: 'fas fa-desktop'
     },
     {
-      id: 'deka',
-      title: 'Deka Apparel System',
-      category: 'Info System',
-      desc: 'Sistem informasi manajemen komprehensif untuk bisnis clothing, mencakup pengelolaan inventori barang, transaksi, dan operasional harian toko.',
-      tech: ['PHP', 'Bootstrap', 'MySQL'],
-      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop', 
+      id: 'pgd-app',
+      title: 'Pengaduan Desa Mobile',
+      category: 'Mobile App',
+      desc: 'Aplikasi mobile interaktif untuk memudahkan masyarakat desa dalam menyampaikan laporan, aspirasi, dan keluhan secara langsung kepada pemerintah desa.',
+      tech: ['Flutter', 'Firebase', 'Dart'],
+      image: 'pgd-desa.png', 
       link: '#',
       linkText: 'On Progress',
-      icon: 'fas fa-store'
+      icon: 'fas fa-mobile-alt'
+    },
+    {
+      id: 'pgd-web',
+      title: 'Pengaduan Desa Admin',
+      category: 'Web Dashboard',
+      desc: 'Sistem manajemen keluhan warga untuk perangkat desa, memungkinkan pelacakan status laporan, tindak lanjut, dan rekapitulasi data secara efisien.',
+      tech: ['Laravel', 'Tailwind', 'MySQL'],
+      image: 'pgd-web.png', 
+      link: 'https://pengaduan-desa-six.vercel.app/', // Link sudah diperbarui ke Vercel
+      linkText: 'Kunjungi Web', // Teks diubah agar lebih intuitif
+      icon: 'fas fa-desktop'
     }
   ];
 
