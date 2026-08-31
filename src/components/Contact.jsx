@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { db } from '../firebase'; 
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import emailjs from '@emailjs/browser'; // Import EmailJS
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,26 +28,38 @@ const Contact = () => {
     setErrorMessage('');
     
     try {
-      const response = await fetch('http://localhost:8000/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(formData)
+      // 1. Simpan data ke Firebase (Sebagai Arsip)
+      await addDoc(collection(db, 'pesan_masuk'), {
+        name: formData.name,
+        email: formData.email,
+        content: formData.content,
+        timestamp: serverTimestamp()
       });
 
-      const data = await response.json();
+      // 2. Kirim Notifikasi via EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        reply_to: formData.email,
+        message: formData.content,
+      };
 
-      if (response.ok) {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-        setFormData({ name: '', email: '', content: '' });
-        setTimeout(() => setIsSubmitted(false), 4000);
-      } else {
-        setIsSubmitting(false);
-        setErrorMessage(data.message || 'Gagal mengirim pesan. Periksa kembali isian Anda.');
-      }
-    } catch (error) {
+      await emailjs.send(
+        'service_l5h0lnf',   // GANTI DENGAN SERVICE ID KAMU
+        'template_bt8dlxv',  // GANTI DENGAN TEMPLATE ID KAMU
+        templateParams,
+        'sa_3cAnktVG_9_Dpm'    // GANTI DENGAN PUBLIC KEY KAMU
+      );
+
+      // Jika kedua proses berhasil
       setIsSubmitting(false);
-      setErrorMessage('Terjadi kesalahan jaringan. Pastikan koneksi internet stabil.');
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', content: '' });
+      setTimeout(() => setIsSubmitted(false), 4000);
+      
+    } catch (error) {
+      console.error("Error submitting form: ", error);
+      setIsSubmitting(false);
+      setErrorMessage('Terjadi kesalahan jaringan atau konfigurasi. Pastikan koneksi internet stabil.');
     }
   };
 
@@ -99,7 +114,6 @@ const Contact = () => {
             viewport={{ once: false }}
             className="w-full lg:w-2/5 p-10 md:p-16 bg-slate-900 flex flex-col justify-between text-left relative overflow-hidden"
           >
-            {/* Aksen Latar Hitam */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/20 blur-[80px] rounded-full pointer-events-none"></div>
 
             <div className="relative z-10">
@@ -112,13 +126,11 @@ const Contact = () => {
                 
                 {/* Tombol Email */}
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=muhammadcepy123@gmail.com" target="_blank" rel="noreferrer" className="group flex items-center gap-4 md:gap-6 p-4 md:p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-sky-500/20 hover:border-sky-500/50 transition-all duration-300 h-auto">
-                  {/* Ikon dikunci ukurannya dengan shrink-0 */}
                   <div className="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-2xl bg-white/10 flex items-center justify-center text-xl md:text-2xl text-sky-400 group-hover:scale-110 transition-transform">
                     <i className="fas fa-envelope"></i>
                   </div>
                   <div className="flex-1">
                     <span className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Email Surel</span>
-                    {/* Menggunakan break-all agar teks turun ke bawah jika layar sempit, bukan terpotong */}
                     <span className="block text-sm md:text-lg font-bold text-white group-hover:text-sky-300 transition-colors break-all">
                       muhammadcepy123@gmail.com
                     </span>
@@ -127,7 +139,6 @@ const Contact = () => {
 
                 {/* Tombol WhatsApp */}
                 <a href="https://wa.me/6287779651205" target="_blank" rel="noreferrer" className="group flex items-center gap-4 md:gap-6 p-4 md:p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-emerald-500/20 hover:border-emerald-500/50 transition-all duration-300 h-auto">
-                  {/* Ikon dikunci ukurannya dengan shrink-0 */}
                   <div className="w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-2xl bg-white/10 flex items-center justify-center text-2xl md:text-3xl text-emerald-400 group-hover:scale-110 transition-transform">
                     <i className="fab fa-whatsapp"></i>
                   </div>

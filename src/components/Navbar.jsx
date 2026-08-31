@@ -23,7 +23,8 @@ const Navbar = () => {
     { name: 'Tentang', href: '/#about' }, // Disesuaikan dengan id="about"
     { name: 'Pengalaman', href: '/#experience' }, // Disesuaikan dengan id="experience"
     { name: 'Portofolio', href: '/#portfolio' },
-    { name: 'Jasa Layanan', href: '/services' }, // Diarahkan ke Route /services
+    { name: 'Jasa Layanan', href: '/services' },
+    { name: 'Galeri', href: '/gallery' }, // Diarahkan ke Route /services
     { name: 'Kontak', href: '/#contact' },
   ];
 

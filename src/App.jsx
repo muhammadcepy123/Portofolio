@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
-import Services from './components/Services'; // File jasa yang akan kita buat nanti
+import Services from './components/Services';
+import Gallery from './components/Gallery'; // 1. Tambahkan import ini
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
+          {/* 2. Tambahkan Route untuk Gallery di sini */}
+          <Route path="/gallery" element={<Gallery />} /> 
         </Routes>
       </div>
     </Router>
