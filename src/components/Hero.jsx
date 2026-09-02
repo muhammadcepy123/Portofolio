@@ -18,7 +18,6 @@ const Hero = () => {
   // Fungsi Download dengan SweetAlert2
   const handleDownload = async (fileUrl, fileName, docType) => {
     try {
-      // Munculkan loading alert
       Swal.fire({
         title: 'Memproses...',
         text: `Sedang menyiapkan file ${docType} Anda`,
@@ -29,30 +28,24 @@ const Hero = () => {
         }
       });
 
-      // Proses fetch file
       const response = await fetch(fileUrl);
       
-      // Jika file tidak ditemukan di folder public, lempar error
       if (!response.ok) {
         throw new Error('File tidak ditemukan');
       }
 
-      // Ubah respons menjadi Blob (data file)
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       
-      // Buat elemen link sementara untuk memicu download
       const link = document.createElement('a');
       link.href = url;
       link.download = fileName;
       document.body.appendChild(link);
       link.click();
       
-      // Bersihkan elemen
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
-      // Munculkan alert SUKSES
       Swal.fire({
         icon: 'success',
         title: 'Berhasil!',
@@ -62,7 +55,6 @@ const Hero = () => {
       });
 
     } catch (error) {
-      // Munculkan alert GAGAL
       Swal.fire({
         icon: 'error',
         title: 'Oops... Gagal!',
@@ -76,40 +68,30 @@ const Hero = () => {
     <header id="home" className="relative w-full min-h-screen flex items-center px-6 md:px-12 xl:px-20 bg-slate-50 pt-20 pb-12 overflow-hidden">
       
       {/* ========================================== */}
-      {/* BACKGROUND GEOMETRIS (SUDAH DIKECILKAN)      */}
+      {/* BACKGROUND GEOMETRIS */}
       {/* ========================================== */}
-      
-      {/* 1. Segitiga Besar (Lebih kecil dari sebelumnya) */}
       <motion.div 
         animate={{ y: [0, 10, 0], x: [0, -10, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         className="absolute -top-10 right-0 w-[250px] h-[250px] lg:w-[450px] lg:h-[450px] bg-gradient-to-bl from-sky-200/50 to-indigo-100/20 z-0"
         style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}
       />
-
-      {/* 2. Segitiga Terpotong */}
       <motion.div 
         animate={{ y: [0, -15, 0], rotate: [-5, 5, -5] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-[20%] -left-10 md:-left-16 w-[180px] h-[220px] bg-gradient-to-br from-emerald-200/40 to-transparent z-0"
         style={{ clipPath: 'polygon(0 0, 100% 15%, 85% 100%, 0 85%)' }}
       />
-
-      {/* 3. Kotak Outline Berputar */}
       <motion.div 
         animate={{ rotate: [15, 75, 15] }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         className="absolute -bottom-10 -left-10 w-48 h-48 md:w-56 md:h-56 border-[12px] border-slate-200/60 rounded-3xl z-0"
       />
-
-      {/* 4. Kotak Solid Kecil */}
       <motion.div 
         animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         className="absolute bottom-[25%] right-[30%] lg:right-[35%] w-10 h-10 bg-sky-300/40 rounded-xl z-0 backdrop-blur-sm"
       />
-
-      {/* 5. Pola Titik (Dot Pattern) */}
       <div 
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] z-0 pointer-events-none opacity-[0.35]" 
         style={{ 
@@ -123,14 +105,13 @@ const Hero = () => {
 
       <div className="w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 lg:gap-12 relative z-10">
         
-        {/* KOLOM KIRI: Teks & Info (Teks Dikecilkan) */}
+        {/* KOLOM KIRI: Teks & Info */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="w-full lg:w-[55%] xl:w-[60%]"
         >
-          {/* Badge Status */}
           <motion.div variants={itemVariants} className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-slate-200 shadow-sm mb-5 hover:shadow-md transition-shadow">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -139,7 +120,6 @@ const Hero = () => {
             <span className="text-xs md:text-sm font-semibold text-slate-700 tracking-wide uppercase">Available for New Projects</span>
           </motion.div>
 
-          {/* Heading */}
           <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-slate-800 leading-[1.15] mb-4 tracking-tight">
             Hi, I'm <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600">
@@ -156,21 +136,17 @@ const Hero = () => {
             Berpengalaman merancang aplikasi pelayanan publik dan solusi digital yang berdampak. Membangun performa tinggi dengan <strong className="text-slate-800 font-semibold">Laravel, React.js, dan Flutter</strong>.
           </motion.p>
           
-          {/* Tombol Aksi */}
+          {/* Tombol Aksi Download */}
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mb-10">
-            
-            {/* 1. TOMBOL DOWNLOAD CV (Warna Biru / Sky-500) */}
             <button 
               onClick={() => handleDownload('/CV_Muhammad_Cepy.pdf', 'CV_Muhammad_Cepy.pdf', 'CV')}
               className="group relative px-7 py-3.5 bg-sky-500 text-white text-sm md:text-base font-bold rounded-xl overflow-hidden shadow-lg shadow-sky-500/30 transition-all hover:scale-[1.02] hover:shadow-sky-500/50 active:scale-95 flex items-center gap-2 cursor-pointer border-none"
             >
               <span className="relative z-10">Unduh CV</span>
               <i className="fas fa-file-alt relative z-10 group-hover:-translate-y-1 transition-transform text-sm"></i>
-              {/* Efek Hover Gradient */}
               <div className="absolute inset-0 bg-gradient-to-r from-sky-400 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
 
-            {/* 2. TOMBOL DOWNLOAD SKL (Warna Gelap / Slate-900) */}
             <button 
               onClick={() => handleDownload('/SKL_318_2303017_MUHAMMAD_CEPY.pdf', 'SKL_318_2303017_MUHAMMAD_CEPY.pdf', 'SKL')}
               className="group relative px-7 py-3.5 bg-slate-900 text-white text-sm md:text-base font-semibold rounded-xl overflow-hidden shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center gap-2 cursor-pointer border-none"
@@ -178,30 +154,33 @@ const Hero = () => {
               <span className="relative z-10">Unduh SKL</span>
               <i className="fas fa-graduation-cap relative z-10 group-hover:-translate-y-1 transition-transform text-sm"></i>
             </button>
-
           </motion.div>
 
-          {/* Social Links */}
+          {/* Social Links yang Baru (URL Email Diperbaiki) */}
           <motion.div variants={itemVariants} className="flex items-center gap-5">
             <span className="text-slate-400 font-medium text-xs tracking-widest uppercase">Connect</span>
             <div className="h-[1px] w-8 bg-slate-300"></div>
             <div className="flex gap-3">
-              {['github', 'linkedin-in', 'dribbble'].map((icon, index) => (
+              {[
+                
+                { icon: 'fas fa-envelope', url: 'https://mail.google.com/mail/?view=cm&fs=1&to=muhammadcepy123@gmail.com' },
+                { icon: 'fab fa-whatsapp', url: 'https://wa.me/6287779651205' }
+              ].map((social, index) => (
                 <a 
                   key={index}
-                  href={icon === 'github' ? "https://github.com/muhammadcepy" : "#"}
+                  href={social.url}
                   target="_blank" 
                   rel="noreferrer" 
                   className="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 text-slate-500 rounded-full shadow-sm hover:bg-slate-900 hover:text-white hover:-translate-y-1 transition-all duration-300"
                 >
-                  <i className={`fab fa-${icon} text-base`}></i>
+                  <i className={`${social.icon} text-base`}></i>
                 </a>
               ))}
             </div>
           </motion.div>
         </motion.div>
 
-        {/* KOLOM KANAN: Foto & Floating Elements (Dikecilkan) */}
+        {/* KOLOM KANAN: Foto & Floating Elements */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -234,7 +213,6 @@ const Hero = () => {
               <div className="w-10 h-10 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-lg">
                 <i className="fas fa-check-circle"></i>
               </div>
-              
             </div>
           </motion.div>
 
