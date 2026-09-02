@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { db } from '../firebase'; 
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import emailjs from '@emailjs/browser'; // Import EmailJS
+import Swal from 'sweetalert2'; // Tambahan Import SweetAlert2
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,6 +27,17 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage('');
+    
+    // Memunculkan Loading Alert dari SweetAlert
+    Swal.fire({
+      title: 'Mengirim Pesan...',
+      text: 'Mohon tunggu sebentar ya.',
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     
     try {
       // 1. Simpan data ke Firebase (Sebagai Arsip)
@@ -54,12 +66,29 @@ const Contact = () => {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFormData({ name: '', email: '', content: '' });
+      
+      // Memunculkan Alert Sukses
+      Swal.fire({
+        icon: 'success',
+        title: 'Pesan Terkirim!',
+        text: 'Terima kasih telah menghubungi saya. Saya akan segera membalas email Anda.',
+        confirmButtonColor: '#10b981', // Warna hijau emerald-500
+      });
+
       setTimeout(() => setIsSubmitted(false), 4000);
       
     } catch (error) {
       console.error("Error submitting form: ", error);
       setIsSubmitting(false);
       setErrorMessage('Terjadi kesalahan jaringan atau konfigurasi. Pastikan koneksi internet stabil.');
+
+      // Memunculkan Alert Gagal
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops... Gagal!',
+        text: 'Maaf, terjadi kesalahan jaringan atau konfigurasi. Pastikan koneksi internet Anda stabil.',
+        confirmButtonColor: '#ef4444', // Warna merah red-500
+      });
     }
   };
 

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import Swal from 'sweetalert2';
 
 const Hero = () => {
   const containerVariants = {
@@ -12,6 +13,63 @@ const Hero = () => {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  };
+
+  // Fungsi Download dengan SweetAlert2
+  const handleDownload = async (fileUrl, fileName, docType) => {
+    try {
+      // Munculkan loading alert
+      Swal.fire({
+        title: 'Memproses...',
+        text: `Sedang menyiapkan file ${docType} Anda`,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      // Proses fetch file
+      const response = await fetch(fileUrl);
+      
+      // Jika file tidak ditemukan di folder public, lempar error
+      if (!response.ok) {
+        throw new Error('File tidak ditemukan');
+      }
+
+      // Ubah respons menjadi Blob (data file)
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      
+      // Buat elemen link sementara untuk memicu download
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      
+      // Bersihkan elemen
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      // Munculkan alert SUKSES
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: `Dokumen ${docType} berhasil diunduh.`,
+        confirmButtonColor: '#0ea5e9',
+        timer: 3000
+      });
+
+    } catch (error) {
+      // Munculkan alert GAGAL
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops... Gagal!',
+        text: `Maaf, dokumen ${docType} gagal diunduh. Pastikan file tersedia.`,
+        confirmButtonColor: '#0f172a'
+      });
+    }
   };
 
   return (
@@ -100,15 +158,27 @@ const Hero = () => {
           
           {/* Tombol Aksi */}
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mb-10">
-            <a href="#portfolio" className="group relative px-6 py-3 bg-slate-900 text-white text-sm md:text-base font-semibold rounded-xl overflow-hidden shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center gap-2">
-              <span className="relative z-10">Lihat Karya Saya</span>
-              <i className="fas fa-arrow-right relative z-10 group-hover:translate-x-1 transition-transform text-sm"></i>
-              <div className="absolute inset-0 bg-gradient-to-r from-sky-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </a>
             
-            <a href="#contact" className="px-6 py-3 bg-white/50 backdrop-blur-md border border-slate-300 text-slate-700 hover:bg-white hover:border-sky-500 hover:text-sky-600 text-sm md:text-base font-semibold rounded-xl transition-all hover:shadow-md hover:scale-[1.02] active:scale-95 flex items-center gap-2">
-              <i className="fas fa-envelope text-sm"></i> Hubungi Saya
-            </a>
+            {/* 1. TOMBOL DOWNLOAD CV (Warna Biru / Sky-500) */}
+            <button 
+              onClick={() => handleDownload('/CV_Muhammad_Cepy.pdf', 'CV_Muhammad_Cepy.pdf', 'CV')}
+              className="group relative px-7 py-3.5 bg-sky-500 text-white text-sm md:text-base font-bold rounded-xl overflow-hidden shadow-lg shadow-sky-500/30 transition-all hover:scale-[1.02] hover:shadow-sky-500/50 active:scale-95 flex items-center gap-2 cursor-pointer border-none"
+            >
+              <span className="relative z-10">Unduh CV</span>
+              <i className="fas fa-file-alt relative z-10 group-hover:-translate-y-1 transition-transform text-sm"></i>
+              {/* Efek Hover Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-r from-sky-400 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
+
+            {/* 2. TOMBOL DOWNLOAD SKL (Warna Gelap / Slate-900) */}
+            <button 
+              onClick={() => handleDownload('/SKL_318_2303017_MUHAMMAD_CEPY.pdf', 'SKL_318_2303017_MUHAMMAD_CEPY.pdf', 'SKL')}
+              className="group relative px-7 py-3.5 bg-slate-900 text-white text-sm md:text-base font-semibold rounded-xl overflow-hidden shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center gap-2 cursor-pointer border-none"
+            >
+              <span className="relative z-10">Unduh SKL</span>
+              <i className="fas fa-graduation-cap relative z-10 group-hover:-translate-y-1 transition-transform text-sm"></i>
+            </button>
+
           </motion.div>
 
           {/* Social Links */}
