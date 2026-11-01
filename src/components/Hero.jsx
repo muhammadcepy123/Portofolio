@@ -2,254 +2,170 @@ import { motion } from 'framer-motion';
 import Swal from 'sweetalert2';
 
 const Hero = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
-  };
-
-  // Fungsi Download dengan SweetAlert2
   const handleDownload = async (fileUrl, fileName, docType) => {
     try {
       Swal.fire({
         title: 'Memproses...',
-        text: `Sedang menyiapkan file ${docType} Anda`,
+        text: `Menyiapkan ${docType}`,
         allowOutsideClick: false,
         showConfirmButton: false,
-        didOpen: () => {
-          Swal.showLoading();
-        }
+        didOpen: () => Swal.showLoading()
       });
 
       const response = await fetch(fileUrl);
-      
-      if (!response.ok) {
-        throw new Error('File tidak ditemukan');
-      }
+      if (!response.ok) throw new Error('File tidak ditemukan');
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-      
       const link = document.createElement('a');
       link.href = url;
       link.download = fileName;
       document.body.appendChild(link);
       link.click();
-      
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: `Dokumen ${docType} berhasil diunduh.`,
-        confirmButtonColor: '#0ea5e9',
-        timer: 3000
-      });
-
+      Swal.fire({ icon: 'success', title: 'Berhasil!', text: `${docType} diunduh.`, confirmButtonColor: '#ef4444', timer: 3000 });
     } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops... Gagal!',
-        text: `Maaf, dokumen ${docType} gagal diunduh. Pastikan file tersedia.`,
-        confirmButtonColor: '#0f172a'
-      });
+      Swal.fire({ icon: 'error', title: 'Gagal!', text: `File ${docType} tidak tersedia.`, confirmButtonColor: '#ef4444' });
     }
   };
 
   return (
-    <header id="home" className="relative w-full min-h-screen flex items-center px-6 md:px-12 xl:px-20 bg-slate-50 pt-20 pb-12 overflow-hidden">
+    <header id="home" className="relative w-full min-h-screen bg-[#0a0a0a] text-white overflow-hidden flex items-center pt-32 pb-20 lg:py-0">
       
-      {/* ========================================== */}
-      {/* BACKGROUND GEOMETRIS */}
-      {/* ========================================== */}
-      <motion.div 
-        animate={{ y: [0, 10, 0], x: [0, -10, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-10 right-0 w-[250px] h-[250px] lg:w-[450px] lg:h-[450px] bg-gradient-to-bl from-sky-200/50 to-indigo-100/20 z-0"
-        style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}
-      />
-      <motion.div 
-        animate={{ y: [0, -15, 0], rotate: [-5, 5, -5] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[20%] -left-10 md:-left-16 w-[180px] h-[220px] bg-gradient-to-br from-emerald-200/40 to-transparent z-0"
-        style={{ clipPath: 'polygon(0 0, 100% 15%, 85% 100%, 0 85%)' }}
-      />
-      <motion.div 
-        animate={{ rotate: [15, 75, 15] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -bottom-10 -left-10 w-48 h-48 md:w-56 md:h-56 border-[12px] border-slate-200/60 rounded-3xl z-0"
-      />
-      <motion.div 
-        animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-[25%] right-[30%] lg:right-[35%] w-10 h-10 bg-sky-300/40 rounded-xl z-0 backdrop-blur-sm"
-      />
-      <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] z-0 pointer-events-none opacity-[0.35]" 
-        style={{ 
-          backgroundImage: 'radial-gradient(#94a3b8 2px, transparent 2px)', 
-          backgroundSize: '28px 28px',
-          maskImage: 'radial-gradient(circle, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 65%)',
-          WebkitMaskImage: 'radial-gradient(circle, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 65%)'
-        }}>
-      </div>
-      {/* ========================================== */}
-
-      <div className="w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 lg:gap-12 relative z-10">
+      {/* --- BACKGROUND NEON GLOW & PATTERNS --- */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-red-600/15 rounded-full blur-[130px]"></div>
+        <div className="absolute bottom-[-10%] right-[-5%] w-[800px] h-[800px] bg-red-600/10 rounded-full blur-[160px]"></div>
         
-        {/* KOLOM KIRI: Teks & Info */}
+        <div className="absolute top-[35%] left-[5%] grid grid-cols-4 gap-2.5 opacity-30">
+          {[...Array(16)].map((_, i) => <div key={i} className="w-1 h-1 bg-red-500 rounded-full"></div>)}
+        </div>
+      </div>
+
+      {/* --- MAIN CONTAINER --- */}
+      <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mt-8">
+        
+        {/* KOLOM KIRI: TEKS UTAMA */}
         <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="w-full lg:w-[55%] xl:w-[60%]"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="lg:col-span-7 flex flex-col items-start xl:pr-10 pt-4"
         >
-          <motion.div variants={itemVariants} className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-slate-200 shadow-sm mb-5 hover:shadow-md transition-shadow">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-            </span>
-            <span className="text-xs md:text-sm font-semibold text-slate-700 tracking-wide uppercase">Available for New Projects</span>
-          </motion.div>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#171717]/80 border border-white/10 rounded-full mb-6 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.9)]"></span>
+            <span className="text-[10px] md:text-[11px] font-semibold text-slate-300 tracking-widest uppercase">PORTFOLIO 2026</span>
+          </div>
 
-          <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl xl:text-6xl font-extrabold text-slate-800 leading-[1.15] mb-4 tracking-tight">
-            Hi, I'm <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600">
-              Muhammad Cepy.
-            </span>
-          </motion.h1>
-          
-          <motion.h2 variants={itemVariants} className="text-lg md:text-xl xl:text-2xl text-slate-500 font-semibold mb-5 flex flex-wrap items-center gap-3">
-            <span className="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md text-sm border border-slate-200">A.Md.Kom.</span>
-            <span>Full-Stack Developer</span>
-          </motion.h2>
+          <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-black leading-[1.05] tracking-tight mb-4">
+            Muhammad <br />
+            <span className="text-red-500 drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]">Cepy.</span>
+          </h1>
 
-          <motion.p variants={itemVariants} className="text-base md:text-lg text-slate-600 mb-8 leading-relaxed max-w-2xl font-light">
-            Berpengalaman merancang aplikasi pelayanan publik dan solusi digital yang berdampak. Membangun performa tinggi dengan <strong className="text-slate-800 font-semibold">Laravel, React.js, dan Flutter</strong>.
-          </motion.p>
-          
-          {/* Tombol Aksi Download */}
-          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mb-10">
+          <div className="flex items-center gap-3 text-lg md:text-xl font-bold mb-5">
+            <span className="text-slate-200">Full-Stack Developer</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+            <span className="text-slate-400">A.Md.Kom.</span>
+          </div>
+
+          <p className="text-sm md:text-base text-slate-400 mb-8 max-w-[540px] leading-relaxed font-light">
+            Saya merancang dan membangun ekosistem digital dengan arsitektur yang bersih dan performa tinggi. Fokus menghadirkan solusi teknologi yang presisi untuk kebutuhan masa kini.
+          </p>
+
+          <div className="flex flex-wrap gap-2.5 mb-8">
+            {[
+              { icon: 'fab fa-laravel text-red-500', name: 'Laravel' },
+              { icon: 'fab fa-react text-sky-400', name: 'React.js' },
+              { icon: 'fas fa-mobile-alt text-blue-400', name: 'Flutter' },
+              { icon: 'fab fa-css3 text-teal-400', name: 'Tailwind CSS' },
+              { icon: 'fas fa-database text-blue-500', name: 'MySQL' }
+            ].map((tech, i) => (
+              <div key={i} className="flex items-center gap-2 px-3.5 py-2 bg-[#141414] border border-white/10 rounded-full text-[11px] md:text-xs font-semibold text-slate-300 shadow-inner">
+                <i className={tech.icon}></i> {tech.name}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 mb-8">
             <button 
               onClick={() => handleDownload('/CV_Muhammad_Cepy.pdf', 'CV_Muhammad_Cepy.pdf', 'CV')}
-              className="group relative px-7 py-3.5 bg-sky-500 text-white text-sm md:text-base font-bold rounded-xl overflow-hidden shadow-lg shadow-sky-500/30 transition-all hover:scale-[1.02] hover:shadow-sky-500/50 active:scale-95 flex items-center gap-2 cursor-pointer border-none"
+              className="px-6 py-3.5 bg-gradient-to-r from-red-600 to-red-500 text-white text-sm font-bold rounded-full hover:brightness-110 transition-all shadow-[0_0_20px_rgba(239,68,68,0.4)] flex items-center gap-2"
             >
-              <span className="relative z-10">Unduh CV</span>
-              <i className="fas fa-file-alt relative z-10 group-hover:-translate-y-1 transition-transform text-sm"></i>
-              <div className="absolute inset-0 bg-gradient-to-r from-sky-400 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              Unduh CV <i className="fas fa-download text-xs"></i>
             </button>
-
             <button 
               onClick={() => handleDownload('/SKL_318_2303017_MUHAMMAD_CEPY.pdf', 'SKL_318_2303017_MUHAMMAD_CEPY.pdf', 'SKL')}
-              className="group relative px-7 py-3.5 bg-slate-900 text-white text-sm md:text-base font-semibold rounded-xl overflow-hidden shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl active:scale-95 flex items-center gap-2 cursor-pointer border-none"
+              className="px-6 py-3.5 bg-transparent border border-slate-600 text-slate-300 text-sm font-bold rounded-full hover:bg-white/5 transition-colors flex items-center gap-2"
             >
-              <span className="relative z-10">Unduh SKL</span>
-              <i className="fas fa-graduation-cap relative z-10 group-hover:-translate-y-1 transition-transform text-sm"></i>
+              Unduh SKL <i className="fas fa-file-alt text-xs"></i>
             </button>
-          </motion.div>
+          </div>
 
-          {/* Social Links yang Baru (URL Email Diperbaiki) */}
-          <motion.div variants={itemVariants} className="flex items-center gap-5">
-            <span className="text-slate-400 font-medium text-xs tracking-widest uppercase">Connect</span>
-            <div className="h-[1px] w-8 bg-slate-300"></div>
-            <div className="flex gap-3">
-              {[
-                
-                { icon: 'fas fa-envelope', url: 'https://mail.google.com/mail/?view=cm&fs=1&to=muhammadcepy123@gmail.com' },
-                { icon: 'fab fa-whatsapp', url: 'https://wa.me/6287779651205' }
-              ].map((social, index) => (
-                <a 
-                  key={index}
-                  href={social.url}
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 text-slate-500 rounded-full shadow-sm hover:bg-slate-900 hover:text-white hover:-translate-y-1 transition-all duration-300"
-                >
-                  <i className={`${social.icon} text-base`}></i>
-                </a>
-              ))}
-            </div>
-          </motion.div>
+          <div className="flex items-center gap-6 text-sm">
+            <a href="https://wa.me/6287779651205" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+              <i className="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=muhammadcepy123@gmail.com" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+              <i className="fas fa-envelope"></i> email
+            </a>
+          </div>
         </motion.div>
 
-        {/* KOLOM KANAN: Foto & Floating Elements */}
+        {/* KOLOM KANAN: FOTO & GLASS CARDS */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="w-full lg:w-[45%] xl:w-[40%] relative flex justify-center lg:justify-end mt-12 lg:mt-0"
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="lg:col-span-5 relative flex justify-center lg:justify-end mt-10 lg:mt-0"
         >
-          {/* Main Photo Card */}
-          <motion.div 
-            drag
-            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-            dragElastic={0.2}
-            whileDrag={{ scale: 1.02, cursor: "grabbing" }}
-            className="relative w-full max-w-[240px] h-[300px] sm:max-w-[260px] sm:h-[340px] md:max-w-[320px] md:h-[400px] rounded-[2rem] bg-white/40 backdrop-blur-2xl border border-white shadow-xl p-2.5 z-10 mx-auto lg:mx-0 group cursor-grab"
-          >
-            <div className="w-full h-full rounded-[1.5rem] overflow-hidden relative pointer-events-none bg-slate-200">
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent z-10"></div>
-              <img src="san.png" alt="Foto Muhammad Cepy" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 ease-out" />
-            </div>
-          </motion.div>
+          {/* Plakat Latar Belakang Merah */}
+          <div className="absolute top-[5%] right-[10%] lg:right-[15%] w-[260px] h-[350px] md:w-[320px] md:h-[420px] bg-gradient-to-br from-red-600/40 to-[#0a0a0a] rounded-tl-[3rem] rounded-br-[3rem] rounded-tr-xl rounded-bl-xl border border-red-500/30 backdrop-blur-sm z-0 shadow-[0_0_50px_rgba(239,68,68,0.2)]"></div>
 
-          {/* Stat Card */}
-          <motion.div
-            drag
-            dragConstraints={{ left: -20, right: 20, top: -20, bottom: 20 }}
-            animate={{ y: [-8, 8, -8] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-8 -left-4 md:top-12 md:-left-8 z-30 bg-white/90 backdrop-blur-md px-4 py-3 rounded-xl shadow-lg border border-slate-100 cursor-grab"
-          >
-            <div className="flex items-center gap-3 pointer-events-none">
-              <div className="w-10 h-10 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-lg">
-                <i className="fas fa-check-circle"></i>
-              </div>
-            </div>
-          </motion.div>
+          {/* Swoosh Light Curve */}
+          <div className="absolute top-[55%] left-[-20%] lg:left-[-10%] w-[120%] h-[150px] border-t-2 border-red-500/40 rounded-[50%] blur-[1px] rotate-[-15deg] z-20 pointer-events-none opacity-60"></div>
 
-          {/* Floating Icon 1: Laravel */}
+          {/* Foto Utama Profil */}
+          <div className="relative z-10 w-[260px] md:w-[340px] pt-4 flex flex-col justify-end">
+            <img 
+              src="san.png" 
+              alt="Muhammad Cepy" 
+              className="w-full h-auto object-contain relative z-10 drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]"
+            />
+            <div className="absolute bottom-0 left-[-10%] right-[-10%] h-24 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent z-20 pointer-events-none"></div>
+          </div>
+
+          {/* FLOATING GLASS CARD 1 */}
           <motion.div 
-            drag
-            dragConstraints={{ left: -30, right: 30, top: -30, bottom: 30 }}
-            animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }}
+            animate={{ y: [-4, 4, -4] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-4 right-2 md:-top-6 md:right-8 w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl shadow-md flex items-center justify-center text-red-500 text-2xl z-20 border border-slate-100 cursor-grab hover:scale-110 transition-transform"
+            className="absolute top-[20%] right-[-5%] lg:right-[-10%] bg-[#171717]/80 backdrop-blur-md border border-white/10 p-4 md:p-5 rounded-2xl shadow-2xl z-30 w-32 md:w-40"
           >
-            <i className="fab fa-laravel pointer-events-none"></i>
+            <div className="w-8 h-8 md:w-10 md:h-10 bg-red-600/20 text-red-500 rounded-lg flex items-center justify-center mb-3">
+              <i className="fas fa-code text-sm md:text-base"></i>
+            </div>
+            <p className="text-white text-sm md:text-base font-bold leading-tight">Developer</p>
+            <p className="text-slate-400 text-[9px] md:text-[10px] mt-1">Build. Innovate. Grow.</p>
+            <div className="w-8 md:w-12 h-[2px] bg-gradient-to-r from-red-600 to-transparent mt-3"></div>
           </motion.div>
 
-          {/* Floating Icon 2: React */}
+          {/* FLOATING GLASS CARD 2 */}
           <motion.div 
-            drag
-            dragConstraints={{ left: -30, right: 30, top: -30, bottom: 30 }}
-            animate={{ y: [0, 15, 0], x: [0, -5, 0] }}
+            animate={{ y: [4, -4, 4] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-10 -left-6 md:bottom-16 md:-left-8 w-10 h-10 md:w-12 md:h-12 bg-slate-900 rounded-xl shadow-md flex items-center justify-center text-sky-400 text-xl z-20 border border-slate-700 cursor-grab hover:scale-110 transition-transform"
+            className="absolute bottom-[25%] lg:bottom-[20%] right-[-5%] lg:right-[-8%] bg-[#171717]/90 backdrop-blur-md border border-white/10 px-4 py-3 md:px-5 md:py-4 rounded-[1.5rem] shadow-2xl z-30 flex items-center gap-3 md:gap-4"
           >
-            <i className="fab fa-react pointer-events-none"></i>
-          </motion.div>
-
-          {/* Floating Icon 3: PHP/DB */}
-          <motion.div 
-            drag
-            dragConstraints={{ left: -30, right: 30, top: -30, bottom: 30 }}
-            animate={{ y: [0, -15, 0] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute -bottom-4 right-6 md:-bottom-6 md:right-12 w-14 h-14 md:w-16 md:h-16 bg-white rounded-full shadow-lg flex items-center justify-center text-indigo-500 text-3xl z-20 border-[3px] border-slate-50 cursor-grab hover:scale-110 transition-transform"
-          >
-            <i className="fab fa-php pointer-events-none"></i>
+            <p className="text-white text-xs md:text-sm font-bold leading-tight">
+              Turning Ideas <br /> Into Digital Reality
+            </p>
+            <div className="w-6 h-6 md:w-8 md:h-8 bg-red-600 rounded-full flex items-center justify-center text-white text-[10px] md:text-xs shadow-[0_0_12px_rgba(239,68,68,0.6)]">
+              <i className="fas fa-arrow-right"></i>
+            </div>
           </motion.div>
 
         </motion.div>
+
       </div>
     </header>
   );
